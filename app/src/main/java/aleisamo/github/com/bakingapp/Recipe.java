@@ -6,35 +6,31 @@ public class Recipe {
 
     private String name;
     private List<Ingredient> ingredients;
-    private String shortDescription;
-    private String description;
+    private List<Step>steps;
 
     public Recipe() {
     }
 
-    public String getDescription() {
-        return description;
-    }
 
     public List<Ingredient> getIngredients() {
         return ingredients;
+    }
+
+    public List<Step> getSteps() {
+        return steps;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
 
     @Override
     public String toString() {
         return "Recipe{" +
                 "name='" + name + '\'' +
                 ", ingredients=" + ingredients +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", description='" + description + '\'' +
+                ", steps=" + steps +
                 '}';
     }
 }

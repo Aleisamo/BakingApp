@@ -73,6 +73,9 @@ public class RecipeCardFragment extends Fragment implements OnItemClickListener 
     public void onClick(View view, int position, List<Recipe> recipes) {
         Recipe recipe = recipes.get(position);
         Intent intent = new Intent(getContext(), RecipesDetail.class);
+        intent.putExtra("title",recipe.getName());
+        //intent.putParcelableArrayListExtra("ingredients", (ArrayList<? extends Parcelable>) recipe.getIngredients());
+        //intent.putExtra("steps",(Parcelable)recipe.getSteps());
         getContext().startActivity(intent);
     }
 }

@@ -23,11 +23,12 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
     @Override
     public RecipesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_card_recipe, parent, false);
+                .inflate(R.layout.card_recipe, parent, false);
         RecipesViewHolder recipesViewHolder = new RecipesViewHolder(v);
         return recipesViewHolder;
-    }
+       }
 
     @Override
     public void onBindViewHolder(RecipesViewHolder holder, int position) {
