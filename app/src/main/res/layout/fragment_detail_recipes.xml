@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@color/cardview_light_background">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cardview_light_background">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorBackground">
+    <TextView
+        android:id="@+id/recipes_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/recipe_ingredients"
+        android:layout_margin="16dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.PopupMenu.Large"
+        android:fontFamily="cursive"
+        android:textSize="30sp"
+        android:gravity="center" />
+    </android.support.v7.widget.CardView>
     <!-- display list of recipes -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recipe_details_recycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/colorPrimary"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/Steps"
+        android:fontFamily="cursive"
+        android:textSize="30sp"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recipe_details_step_recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="16dp"/>
 </LinearLayout>
+</ScrollView>

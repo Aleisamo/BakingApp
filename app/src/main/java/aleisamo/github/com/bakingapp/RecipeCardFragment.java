@@ -2,6 +2,7 @@ package aleisamo.github.com.bakingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -72,10 +74,14 @@ public class RecipeCardFragment extends Fragment implements OnItemClickListener 
     @Override
     public void onClick(View view, int position, List<Recipe> recipes) {
         Recipe recipe = recipes.get(position);
+        List<Ingredient> ingredients = recipe.getIngredients();
+        Log.v("ingredients", String.valueOf(ingredients));
+
         Intent intent = new Intent(getContext(), RecipesDetail.class);
-        intent.putExtra("title",recipe.getName());
-        //intent.putParcelableArrayListExtra("ingredients", (ArrayList<? extends Parcelable>) recipe.getIngredients());
-        //intent.putExtra("steps",(Parcelable)recipe.getSteps());
+        intent.putExtra("title", recipe.getName());
+
+        intent.putParcelableArrayListExtra("ingredients", (ArrayList<? extends Parcelable>) recipe.getIngredients());
+        intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) recipe.getSteps());
         getContext().startActivity(intent);
     }
 }
