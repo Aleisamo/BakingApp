@@ -3,4 +3,8 @@
     <string name="detail_recipes">DetailRecipe</string>
     <string name="recipe_ingredients">Recipe Ingredients</string>
     <string name="Steps">Steps</string>
+    <string name="description">Description</string>
+    <string name="back_to_previous">Back</string>
+    <string name="next_step">Next</string>
+    <string name="restart">Restart</string>
 </resources>

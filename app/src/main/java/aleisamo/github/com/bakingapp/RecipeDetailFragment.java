@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecipeDetailFragment extends Fragment {
+public class RecipeDetailFragment extends Fragment implements OnItemClickListener {
 
     @BindView(R.id.recipe_details_recycleView)
     RecyclerView mRecycleRecipeDetail;
@@ -26,6 +27,7 @@ public class RecipeDetailFragment extends Fragment {
     CardView mCard;
 
     public RecipeDetailFragment(){}
+
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
@@ -41,12 +43,24 @@ public class RecipeDetailFragment extends Fragment {
         LinearLayoutManager llmSteps = new LinearLayoutManager(getContext());
         mRecycleSteps.setLayoutManager(llmSteps);
         ArrayList<?>steps = listIngredients.getParcelableArrayListExtra("steps");
+        List<Step>step1 = (List<Step>) steps;
+        Log.v("steps",step1.toString() );
         StepsAdapter stepsAdapter = new StepsAdapter((List<Step>)steps);
         mRecycleSteps.setAdapter(stepsAdapter);
+        stepsAdapter.setClickListener(this);
         return rootView;
+
     }
 
 
+    @Override
+    public void onClick(View view, int position, List<?> list) {
+        Step steps = (Step) list.get(position);
+        Intent intent = new Intent(getContext(),Description.class);
+        intent.putExtra("description", steps.getDescription());
+        intent.putExtra("thumbnailURL", steps.getThumbnailURL());
+        intent.putExtra("VideoURL", steps.getVideoUrl());
+        getContext().startActivity(intent);
 
-
+    }
 }

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -11,4 +11,28 @@
         <item name="android:background">@color/colorBackground</item>
     </style>
 
+    <style name="ButtonStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:background">#1565C0</item>
+        <item name="android:fontFamily">cursive</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+    </style>
+    <style name="TextStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:fontFamily">cursive</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_width">352dp</item>
+        <item name="android:layout_height">172dp</item>
+    </style>
+
 </resources>
+
+

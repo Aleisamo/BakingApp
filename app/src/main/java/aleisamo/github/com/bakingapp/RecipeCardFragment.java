@@ -72,8 +72,8 @@ public class RecipeCardFragment extends Fragment implements OnItemClickListener 
     }
 
     @Override
-    public void onClick(View view, int position, List<Recipe> recipes) {
-        Recipe recipe = recipes.get(position);
+    public void onClick(View view, int position, List<?> list) {
+        Recipe recipe = (Recipe) list.get(position);
         List<Ingredient> ingredients = recipe.getIngredients();
         Log.v("ingredients", String.valueOf(ingredients));
 
@@ -84,5 +84,7 @@ public class RecipeCardFragment extends Fragment implements OnItemClickListener 
         intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) recipe.getSteps());
         getContext().startActivity(intent);
     }
+
+
 }
 

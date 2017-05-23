@@ -6,14 +6,14 @@ import android.os.Parcelable;
 public class Step implements Parcelable {
     private String shortDescription;
     private String description;
-    private String videoUrl;
-    private String thumbnailUrl;
+    private String videoURL;
+    private String thumbnailURL;
 
     public Step(String shortDescription, String description, String videoUrl, String thumbnailUrl) {
         this.shortDescription = shortDescription;
         this.description = description;
-        this.videoUrl = videoUrl;
-        this.thumbnailUrl = thumbnailUrl;
+        this.videoURL = videoUrl;
+        this.thumbnailURL = thumbnailUrl;
     }
 
     public String getShortDescription() {
@@ -25,11 +25,11 @@ public class Step implements Parcelable {
     }
 
     public String getVideoUrl() {
-        return videoUrl;
+        return videoURL;
     }
 
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
+    public String getThumbnailURL() {
+        return thumbnailURL;
     }
 
     @Override
@@ -37,8 +37,8 @@ public class Step implements Parcelable {
         return "Step{" +
                 "shortDescription='" + shortDescription + '\'' +
                 ", description='" + description + '\'' +
-                ", videoUrl='" + videoUrl + '\'' +
-                ", thumbnailUrl='" + thumbnailUrl + '\'' +
+                ", videoURL='" + videoURL + '\'' +
+                ", thumbnailURL='" + thumbnailURL + '\'' +
                 '}';
     }
 
@@ -51,15 +51,15 @@ public class Step implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.shortDescription);
         dest.writeString(this.description);
-        dest.writeString(this.videoUrl);
-        dest.writeString(this.thumbnailUrl);
+        dest.writeString(this.videoURL);
+        dest.writeString(this.thumbnailURL);
     }
 
     protected Step(Parcel in) {
         this.shortDescription = in.readString();
         this.description = in.readString();
-        this.videoUrl = in.readString();
-        this.thumbnailUrl = in.readString();
+        this.videoURL = in.readString();
+        this.thumbnailURL = in.readString();
     }
 
     public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {

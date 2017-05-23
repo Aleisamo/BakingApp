@@ -21,7 +21,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
 
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_short_description, parent, false);
-        StepsViewHolder stepsViewHolder = new StepsViewHolder(v);
+        StepsViewHolder stepsViewHolder = new StepsViewHolder(v,clickListener,steps);
         return stepsViewHolder;
        }
 
