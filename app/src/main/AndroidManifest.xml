@@ -4,12 +4,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_baking"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_baking"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainBaking">
@@ -19,13 +18,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecipesDetail"
+        <activity
+            android:name=".RecipesDetail"
             android:label="@string/detail_recipes">
-
         </activity>
         <activity android:name=".Description"
-            android:label="@string/description">
+            android:label="Description">
         </activity>
+        <receiver android:name=".widget.BakingWidgetsProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/baking_widgets_provider_info" />
+        </receiver>
+
+        <activity android:name=".widget.BakingWidgetsProviderConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+        <service android:name=".widget.BakingRecipeService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

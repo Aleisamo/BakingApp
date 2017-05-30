@@ -19,7 +19,7 @@ public class MainBaking extends AppCompatActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             // transaction
             fragmentManager.beginTransaction()
-                    .add(R.id.container,recipeCardFragment)
+                    .add(R.id.recipecardfragment,recipeCardFragment)
                     .commit();
         }
 
