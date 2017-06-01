@@ -38,8 +38,8 @@ public class ListOfIngredientsAdapter extends RecyclerView.Adapter<IngredientsVi
         return ingredients.size();
     }
 
-    @Override
+   /* @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-    }
+    }*/
 }

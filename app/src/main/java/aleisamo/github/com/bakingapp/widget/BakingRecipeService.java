@@ -9,7 +9,7 @@ import android.widget.RemoteViewsService;
 
 import java.util.List;
 
-import aleisamo.github.com.bakingapp.BakingClient;
+import aleisamo.github.com.bakingapp.BankingData.BakingClient;
 import aleisamo.github.com.bakingapp.MainBaking;
 import aleisamo.github.com.bakingapp.R;
 import aleisamo.github.com.bakingapp.Recipe;

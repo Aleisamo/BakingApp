@@ -1,7 +1,8 @@
-package aleisamo.github.com.bakingapp;
+package aleisamo.github.com.bakingapp.BankingData;
 
 import java.util.List;
 
+import aleisamo.github.com.bakingapp.Recipe;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

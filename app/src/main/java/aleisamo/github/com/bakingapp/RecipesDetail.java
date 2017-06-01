@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
-public class RecipesDetail extends AppCompatActivity implements RecipeDetailFragment.OnItemClickListener{
+public class RecipesDetail extends AppCompatActivity{
     @BindView(R.id.playerView)
     SimpleExoPlayerView mSimpleExoPlayerView;
     @BindView(R.id.back)
@@ -27,8 +27,10 @@ public class RecipesDetail extends AppCompatActivity implements RecipeDetailFrag
     View mBottom;
     @BindView(R.id.text_description)
     TextView mDescription;
+
     private boolean mTwoPane;
     private String mTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,15 @@ public class RecipesDetail extends AppCompatActivity implements RecipeDetailFrag
             if (savedInstanceState == null) {
                 DescriptionFragment descriptionFragment = new DescriptionFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.description, descriptionFragment)
+                        .add(R.id.description, descriptionFragment)
                         .commit();
             }
         } else {
             mTwoPane = false;
+        }
+            if (getIntent() == null) {
+                return;
+            }
             Intent intent = getIntent();
             ArrayList<?> ingredients = intent.getParcelableArrayListExtra("ingredients");
             ArrayList<?> steps = intent.getParcelableArrayListExtra("steps");
@@ -57,41 +63,25 @@ public class RecipesDetail extends AppCompatActivity implements RecipeDetailFrag
             RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
             recipeDetailFragment.setArguments(args);
             getSupportFragmentManager().beginTransaction().
-                    add(R.id.detail_recipes_fragment, recipeDetailFragment)
+                    add (R.id.detail_recipes_fragment, recipeDetailFragment)
                     .commit();
             Intent recipesDetails = getIntent();
-            String title = recipesDetails.getStringExtra("title");
-            if (title != null) {
-                setTitle(title);
+            mTitle = recipesDetails.getStringExtra("title");
+            if (mTitle != null) {
+                setTitle(mTitle);
             }
-
-        }
-
-        if (getIntent() == null) {
-            return;
         }
 
 
-    }
 
     public boolean ismTwoPane(){return mTwoPane;}
 
-    @Override
-    public void onStepSelected(int position) {
-            String description = getIntent().getStringExtra("description");
-            String title = getIntent().getStringExtra("title");
-            String video = getIntent().getStringExtra("Video");
-            Bundle args = new Bundle();
-            args.putString("ARGUMENTS_DESCRIPTION", description);
-            args.putString("ARGUMENTS_VIDEO", video);
-            args.putString("ARGUMENTS_TITLE", title);
-            DescriptionFragment descriptionFragment = new DescriptionFragment();
-            descriptionFragment.setArguments(args);
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.description, descriptionFragment)
-                    .commit();
-    }
+
+
+
+
 }
+
 
 
 

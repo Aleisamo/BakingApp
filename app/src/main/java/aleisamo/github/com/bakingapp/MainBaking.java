@@ -10,23 +10,23 @@ public class MainBaking extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_baking);
-        //TODO implement for tablets
-        if (savedInstanceState == null){
+
+        if (savedInstanceState == null) {
 
             // create recipe card fragment
-            RecipeCardFragment recipeCardFragment = new RecipeCardFragment();
+            BakingFragment recipeCardFragment = new BakingFragment();
+
             // add fragment to its using Fragment manager
             FragmentManager fragmentManager = getSupportFragmentManager();
+
             // transaction
             fragmentManager.beginTransaction()
-                    .add(R.id.recipecardfragment,recipeCardFragment)
+                    .add(R.id.recipecardfragment, recipeCardFragment)
                     .commit();
         }
 
 
-
     }
-
 
 
 }

@@ -10,9 +10,9 @@
         android:id="@+id/detail_recipes_fragment"
         android:name="aleisamo.github.com.bakingapp.RecipeDetailFragment"
         android:layout_width="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.5"
         android:layout_height="match_parent"/>
-    <view
+    <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"/>

@@ -22,6 +22,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_short_description, parent, false);
         StepsViewHolder stepsViewHolder = new StepsViewHolder(v,clickListener,steps);
+
         return stepsViewHolder;
        }
 
@@ -29,6 +30,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
     public void onBindViewHolder(StepsViewHolder holder, int position) {
         String shortDescription = steps.get(position).getShortDescription();
         holder.mTextSHortDescription.setText(shortDescription);
+
     }
 
 
@@ -43,8 +45,8 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
 
 
 
-    @Override
+    /*@Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-    }
+    }*/
 }

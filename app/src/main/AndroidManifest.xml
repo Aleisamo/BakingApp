@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_baking"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainBaking">
+        <activity android:name=".MainBaking"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,10 +21,12 @@
         </activity>
         <activity
             android:name=".RecipesDetail"
-            android:label="@string/detail_recipes">
+            android:label="@string/detail_recipes"
+            android:configChanges="orientation|keyboardHidden|screenSize">
         </activity>
         <activity android:name=".Description"
-            android:label="Description">
+            android:label="Description"
+            android:configChanges="orientation">
         </activity>
         <receiver android:name=".widget.BakingWidgetsProvider">
             <intent-filter>

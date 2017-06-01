@@ -21,6 +21,7 @@ public class Description extends AppCompatActivity {
     private String video;
     private ArrayList<?> steps;
     private int position;
+    String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,31 +29,26 @@ public class Description extends AppCompatActivity {
         setContentView(R.layout.activity_description);
         ButterKnife.bind(this);
 
-        /*if (savedInstanceState == null) {
-            //create fragment description
-            DescriptionFragment descriptionFragment = new DescriptionFragment();
-            // add fragment using fragment manager
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            // transaction
-            fragmentManager.beginTransaction()
-                    .add(R.id.description, descriptionFragment)
-                    .commit();
-        }*/
-        if (getIntent() == null) {
-            return;
+        if (getIntent() == null ) {
+
+
+        } else {
+
+            Intent intent = getIntent();
+            mTitle = intent.getStringExtra("title");
+            setTitle(mTitle);
+
+            steps = intent.getParcelableArrayListExtra("steps");
+            position = intent.getIntExtra("position", 0);
+
         }
-
-        Intent intent = getIntent();
-
-        setTitle(intent.getStringExtra("title"));
-        steps = intent.getParcelableArrayListExtra("steps");
-        position = intent.getIntExtra("position", 0);
         foo(position);
 
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 foo(--position);
+
             }
         });
 
@@ -70,14 +66,26 @@ public class Description extends AppCompatActivity {
 
         Step step = (Step) steps.get(position);
         description = step.getDescription();
-        video = step.getVideoUrl();
+        if (!step.getThumbnailURL().equals("")){
+            video = step.getThumbnailURL();
+        }
+        else if (!step.getVideoUrl().equals("")) {
+            video = step.getVideoUrl();
+        }
+        else{
+            video = null;
+        }
+
         Bundle args = new Bundle();
         args.putString("ARGUMENTS_DESCRIPTION", description);
         args.putString("ARGUMENTS_VIDEO", video);
+        getSharedPreferences(getClass().getSimpleName(),MODE_PRIVATE)
+                .getString("Current video",video);
         DescriptionFragment descriptionFragment = new DescriptionFragment();
         descriptionFragment.setArguments(args);
         getSupportFragmentManager().beginTransaction().
                 replace(R.id.description, descriptionFragment)
                 .commit();
     }
+
 }
