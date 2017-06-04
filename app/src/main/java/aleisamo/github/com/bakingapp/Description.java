@@ -29,58 +29,53 @@ public class Description extends AppCompatActivity {
         setContentView(R.layout.activity_description);
         ButterKnife.bind(this);
 
-        if (getIntent() == null ) {
-
-
-        } else {
-
-            Intent intent = getIntent();
-            mTitle = intent.getStringExtra("title");
-            setTitle(mTitle);
-
-            steps = intent.getParcelableArrayListExtra("steps");
-            position = intent.getIntExtra("position", 0);
-
+        if (getIntent() == null) {
+            return;
         }
-        foo(position);
+
+        Intent intent = getIntent();
+        mTitle = intent.getStringExtra("title");
+        setTitle(mTitle);
+
+        steps = intent.getParcelableArrayListExtra("steps");
+
+        position = intent.getIntExtra("position", 0);
+        display(position);
 
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                foo(--position);
+                display(--position);
 
             }
         });
-
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                foo(++position);
+                display(++position);
             }
         });
     }
 
-    private void foo(int position) {
+    private void display(int position) {
         mBack.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         mNext.setVisibility(position == steps.size() - 1 ? View.GONE : View.VISIBLE);
 
         Step step = (Step) steps.get(position);
         description = step.getDescription();
-        if (!step.getThumbnailURL().equals("")){
+        if (!step.getThumbnailURL().equals("")) {
             video = step.getThumbnailURL();
-        }
-        else if (!step.getVideoUrl().equals("")) {
+        } else if (!step.getVideoUrl().equals("")) {
             video = step.getVideoUrl();
-        }
-        else{
+        } else {
             video = null;
         }
 
         Bundle args = new Bundle();
         args.putString("ARGUMENTS_DESCRIPTION", description);
         args.putString("ARGUMENTS_VIDEO", video);
-        getSharedPreferences(getClass().getSimpleName(),MODE_PRIVATE)
-                .getString("Current video",video);
+        getSharedPreferences(getClass().getSimpleName(), MODE_PRIVATE)
+                .getInt("Current position", position);
         DescriptionFragment descriptionFragment = new DescriptionFragment();
         descriptionFragment.setArguments(args);
         getSupportFragmentManager().beginTransaction().

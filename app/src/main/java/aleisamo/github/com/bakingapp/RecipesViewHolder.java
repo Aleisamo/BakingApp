@@ -11,12 +11,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private OnItemClickListener clickListener;
-    private List<Recipe> recipes;
     @BindView(R.id.recipes_cardView)
     CardView mCardView;
     @BindView(R.id.recipe_card)
     TextView mTextView;
+
+    private final OnItemClickListener clickListener;
+    private final List<Recipe> recipes;
 
     public RecipesViewHolder(View itemView, OnItemClickListener clickListener, List<Recipe> recipes) {
         super(itemView);
@@ -24,7 +25,6 @@ public class RecipesViewHolder extends RecyclerView.ViewHolder implements View.O
         this.clickListener = clickListener;
         this.recipes = recipes;
         itemView.setOnClickListener(this);
-
     }
 
     @Override

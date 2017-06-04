@@ -39,14 +39,13 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
         // bind the view
         ButterKnife.bind(this, rootView);
         boolean twoPane = getResources().getBoolean(R.bool.isTwoPane);
-        if(twoPane){
+        if (twoPane) {
             int numberOfColumns = 2;
-            glm = new GridLayoutManager(getContext(),numberOfColumns);
+            glm = new GridLayoutManager(getContext(), numberOfColumns);
             mRecycleRecipes.setLayoutManager(glm);
             FetchRecipes fetchRecipes = new FetchRecipes(mRecycleRecipes, this);
             fetchRecipes.fetchRecipes();
-        }
-        else {
+        } else {
             llm = new LinearLayoutManager(getContext());
             mRecycleRecipes.setLayoutManager(llm);
             FetchRecipes fetchRecipes = new FetchRecipes(mRecycleRecipes, this);
@@ -66,9 +65,5 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
         intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) recipe.getSteps());
         getContext().startActivity(intent);
     }
-
-
-
-
 }
 

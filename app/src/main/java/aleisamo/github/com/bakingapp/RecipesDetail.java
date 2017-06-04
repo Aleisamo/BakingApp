@@ -11,10 +11,12 @@ import android.widget.TextView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
-public class RecipesDetail extends AppCompatActivity{
+public class RecipesDetail extends AppCompatActivity implements OnItemClickListener {
+
     @BindView(R.id.playerView)
     SimpleExoPlayerView mSimpleExoPlayerView;
     @BindView(R.id.back)
@@ -31,55 +33,80 @@ public class RecipesDetail extends AppCompatActivity{
     private boolean mTwoPane;
     private String mTitle;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_recipes);
-        // Intent from main Activity
 
-        if (findViewById(R.id.description) != null) {
-            mTwoPane = true;
-            if (savedInstanceState == null) {
-                DescriptionFragment descriptionFragment = new DescriptionFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.description, descriptionFragment)
-                        .commit();
-            }
-        } else {
-            mTwoPane = false;
-        }
-            if (getIntent() == null) {
-                return;
-            }
-            Intent intent = getIntent();
-            ArrayList<?> ingredients = intent.getParcelableArrayListExtra("ingredients");
-            ArrayList<?> steps = intent.getParcelableArrayListExtra("steps");
-            mTitle = intent.getStringExtra("title");
-            Bundle args = new Bundle();
-            args.putString("ARGUMENT_TITLE", mTitle);
-            args.putParcelableArrayList("ARGUMENT_INGREDIENTS", (ArrayList<? extends Parcelable>) ingredients);
-            args.putParcelableArrayList("ARGUMENT_STEPS", (ArrayList<? extends Parcelable>) steps);
-            RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
-            recipeDetailFragment.setArguments(args);
-            getSupportFragmentManager().beginTransaction().
-                    add (R.id.detail_recipes_fragment, recipeDetailFragment)
+        mTwoPane = findViewById(R.id.description) != null;
+
+        if (mTwoPane) {
+            DescriptionFragment descriptionFragment = new DescriptionFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.description, descriptionFragment)
                     .commit();
-            Intent recipesDetails = getIntent();
-            mTitle = recipesDetails.getStringExtra("title");
-            if (mTitle != null) {
-                setTitle(mTitle);
-            }
         }
 
+        if (getIntent() == null) {
+            return;
+        }
 
+        Intent intent = getIntent();
+        mTitle = intent.getStringExtra("title");
+        if (mTitle != null) {
+            setTitle(mTitle);
+        }
+        ArrayList<Parcelable> ingredients = intent.getParcelableArrayListExtra("ingredients");
+        ArrayList<Parcelable> steps = intent.getParcelableArrayListExtra("steps");
+        createRecipeDetailFragment(ingredients, steps);
 
-    public boolean ismTwoPane(){return mTwoPane;}
+        //TODO call onItemSelected with position in savedInstanceState
+    }
 
+    private void createRecipeDetailFragment(ArrayList<Parcelable> ingredients, ArrayList<Parcelable> steps) {
+        Bundle args = new Bundle();
+        args.putParcelableArrayList("ARGUMENT_INGREDIENTS", ingredients);
+        args.putParcelableArrayList("ARGUMENT_STEPS", steps);
 
+        RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
+        recipeDetailFragment.setArguments(args);
 
+        getSupportFragmentManager().beginTransaction().
+                add(R.id.detail_recipes_fragment, recipeDetailFragment)
+                .commit();
+    }
 
+    @Override
+    public void onClick(View view, int position, List<?> list) {
+        String description;
+        String video;
+        if (mTwoPane) {
+            Step step = (Step) list.get(position);
+            description = step.getDescription();
+            if (!step.getThumbnailURL().equals("")) {
+                video = step.getThumbnailURL();
+            } else if (!step.getVideoUrl().equals("")) {
+                video = step.getVideoUrl();
+            } else {
+                video = null;
+            }
+            Bundle args = new Bundle();
+            args.putString("ARGUMENTS_DESCRIPTION", description);
+            args.putString("ARGUMENTS_VIDEO", video);
+            DescriptionFragment descriptionFragment = new DescriptionFragment();
+            descriptionFragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.description, descriptionFragment)
+                    .commit();
+        } else {
+            Intent intent = new Intent(this, Description.class);
+            intent.putExtra("title", mTitle);
+            intent.putExtra("position", position);
+            intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) list);
+            startActivity(intent);
+        }
 
+    }
 }
 
 

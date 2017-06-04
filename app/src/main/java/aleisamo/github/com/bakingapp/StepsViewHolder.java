@@ -15,23 +15,23 @@ public class StepsViewHolder extends RecyclerView.ViewHolder implements View.OnC
     CardView mCardShortDescription;
     @BindView(R.id.text_short_description)
     TextView mTextSHortDescription;
-    private OnItemClickListener clickListener;
-    private List<Step>steps;
 
-    public StepsViewHolder(View itemView,OnItemClickListener clickListener, List<Step>steps) {
+    private OnItemClickListener clickListener;
+    private List<Step> steps;
+
+    public StepsViewHolder(View itemView, OnItemClickListener clickListener, List<Step> steps) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
         this.clickListener = clickListener;
         this.steps = steps;
         itemView.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
-        if(clickListener!= null){
-            clickListener.onClick(v,getAdapterPosition(),steps);
+        if (clickListener != null) {
+            clickListener.onClick(v, getAdapterPosition(), steps);
         }
-
     }
+
 }
