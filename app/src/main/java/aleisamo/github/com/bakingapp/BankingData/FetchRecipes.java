@@ -41,7 +41,8 @@ public class FetchRecipes {
         call.enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                List<Recipe> recipes = response.body();
+                List<Recipe> recipes =
+                        response.body();
                 ///Log.v(MainBaking.class.getSimpleName(), "response" + recipes);
                 RecipesListAdapter adapter = new RecipesListAdapter(recipes);
                 mRecyclerView.setAdapter(adapter);

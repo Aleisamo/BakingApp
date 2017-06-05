@@ -13,7 +13,7 @@ public class MainBaking extends AppCompatActivity {
 
         if (savedInstanceState == null) {
 
-            // create recipe card fragment
+            // create widget_recipe_name card fragment
             BakingFragment recipeCardFragment = new BakingFragment();
 
             // add fragment to its using Fragment manager

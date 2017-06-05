@@ -118,4 +118,6 @@ public class DescriptionFragment extends Fragment {
         releasePlayer();
     }
 
+    //save current state position or as well video  descr
+
 }
