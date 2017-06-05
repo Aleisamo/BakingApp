@@ -1,6 +1,7 @@
 package aleisamo.github.com.bakingapp.BakingWidget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -8,7 +9,6 @@ import android.widget.RemoteViewsService;
 import java.util.List;
 
 import aleisamo.github.com.bakingapp.BankingData.BakingClient;
-import aleisamo.github.com.bakingapp.MainBaking;
 import aleisamo.github.com.bakingapp.R;
 import aleisamo.github.com.bakingapp.Recipe;
 import okhttp3.OkHttpClient;
@@ -22,19 +22,31 @@ public class BakingRecipesList implements RemoteViewsService.RemoteViewsFactory 
     private static final String API_BASE_URL = "https://go.udacity.com/";
 
     private List<Recipe> recipes;
+    //private List<String> recipesName;
+
     private Context context;
 
-    public BakingRecipesList(Context context) {
+    public BakingRecipesList(Context context, Intent intent) {
         this.context = context;
     }
 
     @Override
     public void onCreate() {
+        //recipesName = Arrays.asList("Brownie","cup cake","apple pie");
+        //recipes();
+        callRecipes();
+
+
     }
+
+
 
     @Override
     public void onDataSetChanged() {
-        recipes();
+       // recipesName = Arrays.asList("Brownie","cup cake","apple pie");
+       // recipes();
+        callRecipes();
+
     }
 
     @Override
@@ -45,12 +57,16 @@ public class BakingRecipesList implements RemoteViewsService.RemoteViewsFactory 
 
     @Override
     public int getCount() {
-        return recipes.size();
+
+        int recipeSize =getRecipes((Callback<List<Recipe>>) recipes).size();
+        return recipeSize;
+
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
         final RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.widget_recipe_name);
+        //String recipeName = recipesName.get(position);
         String recipeName = recipes.get(position).getName();
         remoteView.setTextViewText(R.id.recipeNameWidget,recipeName);
         // Todo fill intent here and setting on click listener
@@ -79,7 +95,7 @@ public class BakingRecipesList implements RemoteViewsService.RemoteViewsFactory 
     }
 
     // List of Recipes using retrofit
-    public void recipes() {
+    public BakingClient client() {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         // implementing Retrofit
         Retrofit.Builder builder = new Retrofit.Builder()
@@ -87,23 +103,41 @@ public class BakingRecipesList implements RemoteViewsService.RemoteViewsFactory 
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.client(httpClient.build()).build();
         BakingClient client = retrofit.create(BakingClient.class);
+        return client;
+    }
 
-        Call<List<Recipe>> call = client.recipes();
 
-        call.enqueue(new Callback<List<Recipe>>() {
+    private void callRecipes() {
+        getRecipes(new Callback<List<Recipe>>() {
+
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 recipes = response.body();
+
             }
+
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Log.v(MainBaking.class.getSimpleName(), "error");
+                Log.d("LOG", "check Connection");
+
             }
         });
 
     }
 
+    public List<Recipe> getRecipes(Callback<List<Recipe>> callback) {
+        List<Recipe>test = null;
+        retrofit2.Call<List<Recipe>>call = client().recipes();
+        call.enqueue(callback);
+        return test;
 
+    }
 
 }
+
+
+
+
+
+
 

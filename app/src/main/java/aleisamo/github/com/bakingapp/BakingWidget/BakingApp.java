@@ -57,7 +57,7 @@ public class BakingApp extends AppWidgetProvider {
 
     private static void setRemoteAdapter(Context context,RemoteViews remoteViews){
         remoteViews.setRemoteAdapter(R.id.list_of_recipes,
-                new Intent(context,BakingRecipesList.class));
+                new Intent(context,BakingRecipesViewService.class));
     }
 
 

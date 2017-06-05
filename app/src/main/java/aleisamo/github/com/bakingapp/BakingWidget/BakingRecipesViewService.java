@@ -7,7 +7,7 @@ public class BakingRecipesViewService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new BakingRecipesList(this.getApplicationContext());
+        return new BakingRecipesList(this,intent);
     }
 
 
