@@ -18,6 +18,9 @@ import java.util.List;
 import aleisamo.github.com.bakingapp.BankingData.FetchRecipes;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BakingFragment extends Fragment implements OnItemClickListener {
 
@@ -29,6 +32,8 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
 
     @BindView(R.id.recipe_recycleView)
     RecyclerView mRecycleRecipes;
+    List<Recipe>mRecipes;
+
 
     public BakingFragment() {
     }
@@ -38,18 +43,19 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
         View rootView = inflater.inflate(R.layout.fragment_list_recipes, container, false);
         // bind the view
         ButterKnife.bind(this, rootView);
+        Callback<List<Recipe>>callback = listCallback(this);
         boolean twoPane = getResources().getBoolean(R.bool.isTwoPane);
         if (twoPane) {
             int numberOfColumns = 2;
             glm = new GridLayoutManager(getContext(), numberOfColumns);
             mRecycleRecipes.setLayoutManager(glm);
-            FetchRecipes fetchRecipes = new FetchRecipes(mRecycleRecipes, this);
-            fetchRecipes.fetchRecipes();
+            FetchRecipes fetchRecipes = new FetchRecipes();
+            fetchRecipes.fetchRecipes(callback);
         } else {
             llm = new LinearLayoutManager(getContext());
             mRecycleRecipes.setLayoutManager(llm);
-            FetchRecipes fetchRecipes = new FetchRecipes(mRecycleRecipes, this);
-            fetchRecipes.fetchRecipes();
+            FetchRecipes fetchRecipes = new FetchRecipes();
+            fetchRecipes.fetchRecipes(callback);
         }
         return rootView;
     }
@@ -64,6 +70,27 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
         intent.putParcelableArrayListExtra("ingredients", (ArrayList<? extends Parcelable>) recipe.getIngredients());
         intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) recipe.getSteps());
         getContext().startActivity(intent);
+    }
+
+    private Callback<List<Recipe>> listCallback (final OnItemClickListener onItemClickListener){
+        return new Callback<List<Recipe>>() {
+            @Override
+            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+                List<Recipe>recipes = response.body();
+                mRecipes= recipes;
+                RecipesListAdapter adapter = new RecipesListAdapter(recipes);
+                mRecycleRecipes.setAdapter(adapter);
+                adapter.setClickListener(onItemClickListener);
+            }
+
+            @Override
+            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Log.d(BakingFragment.class.getSimpleName(), "network issues");
+
+            }
+        };
+
+
     }
 }
 
