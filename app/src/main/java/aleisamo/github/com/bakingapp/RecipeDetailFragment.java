@@ -54,6 +54,7 @@ public class RecipeDetailFragment extends Fragment {
             StepsAdapter stepsAdapter = new StepsAdapter(steps);
             mRecycleSteps.setAdapter(stepsAdapter);
             stepsAdapter.setClickListener(callback);
+
         }
 
         return rootView;

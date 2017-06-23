@@ -23,24 +23,35 @@
         <activity
             android:name=".RecipesDetail"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/detail_recipes"></activity>
+            android:label="@string/detail_recipes"
+            android:parentActivityName=".MainBaking">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainBaking"/>
+        </activity>
+
         <activity
             android:name=".Description"
             android:configChanges="orientation"
-            android:label="Description"></activity>
+            android:label="Description"
+            android:parentActivityName=".RecipesDetail">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".RecipesDetail"/>
+        </activity>
 
-        <receiver android:name=".BakingWidget.BakingWidgetProvider">
+        <receiver android:name=".BakingWidget.BakingAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/baking_app_info" />
+                android:resource="@xml/baking_app_widget_info" />
         </receiver>
-        <service android:name=".BakingWidget.BakingRecipesViewService"
-            android:permission="android.permission.BIND_REMOTEVIEWS" />
-
+        <service
+            android:name=".BakingWidget.ListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"/>
     </application>
 
 </manifest>

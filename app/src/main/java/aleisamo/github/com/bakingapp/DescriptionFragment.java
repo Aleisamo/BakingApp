@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -21,6 +23,7 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -44,6 +47,8 @@ public class DescriptionFragment extends Fragment {
     View mLineTop;
     @BindView(R.id.viewlineBottom)
     View mLineBottom;
+    @BindView(R.id.exo_layout_id)
+    RelativeLayout mExoLayout;
 
 
     public DescriptionFragment() {
@@ -59,13 +64,22 @@ public class DescriptionFragment extends Fragment {
 
             // check landscape mode
             boolean isLand = getResources().getBoolean(R.bool.isLandScape);
-            if(isLand){
+            boolean isTwoPane = getResources().getBoolean(R.bool.isTwoPane);
+            if(isLand && !isTwoPane){
                 setVideo(videoUri);
                 mDescription.setVisibility(View.GONE);
                 mLineBottom.setVisibility(View.GONE);
                 mLineTop.setVisibility(View.GONE);
-                mExoPlayerView.setSystemUiVisibility(
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
+                        1.0f
+                );
+                mExoLayout.setLayoutParams(param);
+
+                mExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+                //mExoPlayerView.setSystemUiVisibility(
+                  //      View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             }
             else{
                 mDescription.setText(description);
@@ -117,7 +131,5 @@ public class DescriptionFragment extends Fragment {
         super.onDestroy();
         releasePlayer();
     }
-
-    //save current state position or as well video  descr
 
 }

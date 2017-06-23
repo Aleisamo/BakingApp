@@ -7,8 +7,14 @@
     <string name="back_to_previous">Back</string>
     <string name="next_step">Next</string>
     <string name="restart">Restart</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="configure">Configure</string>
-    <string name="add_widget">Add widget</string>
+    <string name="appwidget_text">BAKING APP</string>
+    <string name="configure">List to display</string>
+    <string name="add_widget_recipe">Add Recipes</string>
+    <string name="add_widget_ingredients">Add Ingredients</string>
     <string name="recipes">Baking Recipes</string>
+    <string name="empty_view_text">Ingredient list is empty</string>
+    <string name="baking_text">Check App to updated widget</string>
+    <string name="baking_now">BakingApp widget!!</string>
+    <string name="add_widget">Add widget</string>
+    <string name="change_recipe">Change Recipe</string>
 </resources>

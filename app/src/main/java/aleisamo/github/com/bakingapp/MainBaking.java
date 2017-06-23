@@ -2,9 +2,13 @@ package aleisamo.github.com.bakingapp;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 public class MainBaking extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,7 +17,7 @@ public class MainBaking extends AppCompatActivity {
 
         if (savedInstanceState == null) {
 
-            // create widget_recipe_name card fragment
+            // create widget_list_ingredients card fragment
             BakingFragment recipeCardFragment = new BakingFragment();
 
             // add fragment to its using Fragment manager
@@ -24,9 +28,15 @@ public class MainBaking extends AppCompatActivity {
                     .add(R.id.recipecardfragment, recipeCardFragment)
                     .commit();
         }
-
-
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -21,6 +21,7 @@ public class Description extends AppCompatActivity {
     private String video;
     private ArrayList<?> steps;
     private int position;
+    private int currentPosition;
     String mTitle;
 
     @Override
@@ -28,11 +29,11 @@ public class Description extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description);
         ButterKnife.bind(this);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (getIntent() == null) {
             return;
         }
-
         Intent intent = getIntent();
         mTitle = intent.getStringExtra("title");
         setTitle(mTitle);
@@ -40,24 +41,34 @@ public class Description extends AppCompatActivity {
         steps = intent.getParcelableArrayListExtra("steps");
 
         position = intent.getIntExtra("position", 0);
-        display(position);
+
+        // restore state from share preferences
+        currentPosition = this.getSharedPreferences(getClass().getSimpleName(),
+                this.MODE_PRIVATE)
+                .getInt("currentPosition", position);
+        display(currentPosition);
 
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                display(--position);
-
+                display(--currentPosition);
             }
         });
+
         mNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                display(++position);
+                display(++currentPosition);
             }
         });
     }
 
     private void display(int position) {
+
+        // save position when phone is rotated and avoid lose currently activity
+        this.getSharedPreferences(getClass().getSimpleName(), this.MODE_PRIVATE)
+                .edit().putInt("currentPosition", position).apply();
+
         mBack.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         mNext.setVisibility(position == steps.size() - 1 ? View.GONE : View.VISIBLE);
 
@@ -82,5 +93,6 @@ public class Description extends AppCompatActivity {
                 replace(R.id.description, descriptionFragment)
                 .commit();
     }
+
 
 }

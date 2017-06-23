@@ -32,6 +32,8 @@ public class StepsViewHolder extends RecyclerView.ViewHolder implements View.OnC
         if (clickListener != null) {
             clickListener.onClick(v, getAdapterPosition(), steps);
         }
-    }
 
+    }
 }
+
+
