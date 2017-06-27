@@ -10,6 +10,7 @@ import java.util.List;
 public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
 
     private final List<Step> steps;
+
     private OnItemClickListener clickListener;
 
     public StepsAdapter(List<Step> steps) {
@@ -20,8 +21,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
     public StepsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_short_description, parent, false);
-        final StepsViewHolder stepsViewHolder = new StepsViewHolder(v, clickListener,steps);
-        return stepsViewHolder;
+        return new StepsViewHolder(v, clickListener, steps);
     }
 
     @Override
@@ -37,6 +37,5 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsViewHolder> {
 
     public void setClickListener(OnItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
-
     }
 }

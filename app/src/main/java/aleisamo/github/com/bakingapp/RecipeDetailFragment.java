@@ -19,15 +19,17 @@ public class RecipeDetailFragment extends Fragment {
 
     @BindView(R.id.recipe_details_recycleView)
     RecyclerView mRecycleRecipeDetail;
+
     @BindView(R.id.recipe_details_step_recycleView)
     RecyclerView mRecycleSteps;
+
     @BindView(R.id.card)
     CardView mCard;
 
-    private OnItemClickListener callback;
-
     public RecipeDetailFragment() {
     }
+
+    private OnItemClickListener callback;
 
     @Override
     public void onAttach(Context context) {
@@ -54,7 +56,6 @@ public class RecipeDetailFragment extends Fragment {
             StepsAdapter stepsAdapter = new StepsAdapter(steps);
             mRecycleSteps.setAdapter(stepsAdapter);
             stepsAdapter.setClickListener(callback);
-
         }
 
         return rootView;

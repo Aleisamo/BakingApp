@@ -14,13 +14,16 @@ public enum WidgetIngredients {
     public static List<Ingredient> getIngredients() {
         return INSTANCE.ingredients;
     }
-    public static String getRecipeName(){return  INSTANCE.recipeName;}
+
+    public static String getRecipeName() {
+        return INSTANCE.recipeName;
+    }
 
     public static void setIngredients(List<Ingredient> ingredients) {
         INSTANCE.ingredients = ingredients;
     }
 
-    public static void setRecipeName(String recipeName){
+    public static void setRecipeName(String recipeName) {
         INSTANCE.recipeName = recipeName;
     }
 }

@@ -4,7 +4,6 @@ package aleisamo.github.com.bakingapp;
 import android.os.SystemClock;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,11 +18,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
-@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class MainBakingTest {
-    public static final String TITLE = "Recipe Ingredients";
 
+    private static final String TITLE = "Recipe Ingredients";
 
     @Rule
     public ActivityTestRule<MainBaking> mActivityTestRule = new ActivityTestRule<>(MainBaking.class);
@@ -32,14 +30,13 @@ public class MainBakingTest {
     public void clickRecycleViewItem_OpenRecipeDetails() {
         SystemClock.sleep(3000);
 
-        onView(allOf(withId(R.id.recipe_recycleView),
-                isDisplayed())).perform(actionOnItemAtPosition(0, click()));
+        onView(allOf(withId(R.id.recipe_recycleView), isDisplayed()))
+                .perform(actionOnItemAtPosition(0, click()));
 
         //on view check Title
         SystemClock.sleep(3000);
-        onView(withId(R.id.recipes_ingredients)).check(matches(withText(TITLE)));
-
+        onView(allOf(withId(R.id.recipes_ingredients), isDisplayed()))
+                .check(matches(withText(TITLE)));
     }
-
 
 }

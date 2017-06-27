@@ -11,10 +11,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
     @BindView(R.id.recipes_cardView)
     CardView mCardView;
+
     @BindView(R.id.recipe_card)
     TextView mTextView;
+
     @BindView(R.id.recipe_servings)
     TextView mServingText;
 

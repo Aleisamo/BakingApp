@@ -31,7 +31,8 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
 
     @BindView(R.id.recipe_recycleView)
     RecyclerView mRecycleRecipes;
-    List<Recipe>mRecipes;
+
+    private List<Recipe> recipes;
 
     public BakingFragment() {
     }
@@ -41,20 +42,19 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
         View rootView = inflater.inflate(R.layout.fragment_list_recipes, container, false);
         // bind the view
         ButterKnife.bind(this, rootView);
-        Callback<List<Recipe>>callback = listCallback(this);
+
+        Callback<List<Recipe>> callback = listCallback(this);
+        FetchRecipes fetchRecipes = new FetchRecipes();
+        fetchRecipes.fetchRecipes(callback);
 
         boolean twoPane = getResources().getBoolean(R.bool.isTwoPane);
         if (twoPane) {
             int numberOfColumns = 2;
             glm = new GridLayoutManager(getContext(), numberOfColumns);
             mRecycleRecipes.setLayoutManager(glm);
-            FetchRecipes fetchRecipes = new FetchRecipes();
-            fetchRecipes.fetchRecipes(callback);
         } else {
             llm = new LinearLayoutManager(getContext());
             mRecycleRecipes.setLayoutManager(llm);
-            FetchRecipes fetchRecipes = new FetchRecipes();
-            fetchRecipes.fetchRecipes(callback);
         }
 
         return rootView;
@@ -64,7 +64,7 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
     public void onClick(View view, int position, List<?> list) {
         Recipe recipe = (Recipe) list.get(position);
         List<Ingredient> ingredients = recipe.getIngredients();
-        //Log.v("ingredients", String.valueOf(ingredients));
+
         Intent intent = new Intent(getContext(), RecipesDetail.class);
         intent.putExtra(getString(R.string.title), recipe.getName());
         intent.putParcelableArrayListExtra(getString(R.string.ingredients), (ArrayList<? extends Parcelable>) recipe.getIngredients());
@@ -72,31 +72,27 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
         getContext().startActivity(intent);
 
         // use singleton to populate list of recipes and set recipe name Widget
-        WidgetIngredients.INSTANCE.setIngredients(ingredients);
-        WidgetIngredients.INSTANCE.setRecipeName(recipe.getName());
+        WidgetIngredients.setIngredients(ingredients);
+        WidgetIngredients.setRecipeName(recipe.getName());
         BakingAppWidget.updateAppWidgets(getContext());
     }
 
-    private Callback<List<Recipe>> listCallback (final OnItemClickListener onItemClickListener){
+    private Callback<List<Recipe>> listCallback(final OnItemClickListener onItemClickListener) {
         return new Callback<List<Recipe>>() {
 
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                List<Recipe>recipes = response.body();
-                mRecipes= recipes;
-                RecipesListAdapter adapter = new RecipesListAdapter(recipes,getContext());
+                recipes = response.body();
+                RecipesListAdapter adapter = new RecipesListAdapter(recipes, getContext());
                 mRecycleRecipes.setAdapter(adapter);
                 adapter.setClickListener(onItemClickListener);
             }
 
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Log.d(BakingFragment.class.getSimpleName(),getString(R.string.check_connection));
-
+                Log.e(BakingFragment.class.getSimpleName(), getString(R.string.check_connection), t);
             }
         };
-
-
     }
 }
 

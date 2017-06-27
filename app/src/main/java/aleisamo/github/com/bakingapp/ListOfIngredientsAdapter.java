@@ -12,17 +12,15 @@ public class ListOfIngredientsAdapter extends RecyclerView.Adapter<IngredientsVi
     private List<Ingredient> ingredients;
 
 
-    public ListOfIngredientsAdapter(List<Ingredient>ingredients) {
-        this.ingredients =ingredients;
-   }
-
+    public ListOfIngredientsAdapter(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 
     @Override
     public IngredientsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_ingredients,parent,false);
-        IngredientsViewHolder ingredientsViewHolder = new IngredientsViewHolder(view);
-        return ingredientsViewHolder;
+                .inflate(R.layout.list_ingredients, parent, false);
+        return new IngredientsViewHolder(view);
     }
 
     @Override
@@ -30,16 +28,12 @@ public class ListOfIngredientsAdapter extends RecyclerView.Adapter<IngredientsVi
         String quantity = ingredients.get(position).getQuantity();
         String measure = ingredients.get(position).getMeasure();
         String ingredient = ingredients.get(position).getIngredient();
-        holder.mListOfIngredients.setText(ingredient+"\n"+ quantity + measure);
+        holder.mListOfIngredients.setText(ingredient + "\n" + quantity + measure);
         holder.mListOfIngredients.setVisibility(View.VISIBLE);
-      }
+    }
+
     @Override
     public int getItemCount() {
         return ingredients.size();
     }
-
-   /* @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-    }*/
 }

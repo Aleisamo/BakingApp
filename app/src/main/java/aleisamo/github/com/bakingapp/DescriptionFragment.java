@@ -29,21 +29,27 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DescriptionFragment extends Fragment {
+
     private SimpleExoPlayer mExoPlayerVideo;
     private boolean videoRelease;
+
     @BindView(R.id.playerView)
     SimpleExoPlayerView mExoPlayerView;
+
     @BindView(R.id.text_description)
     TextView mDescription;
+
     @BindView(R.id.imageCupcake)
     ImageView mImage;
+
     @BindView(R.id.viewlineTop)
     View mLineTop;
+
     @BindView(R.id.viewlineBottom)
     View mLineBottom;
+
     @BindView(R.id.exo_layout_id)
     RelativeLayout mExoLayout;
-
 
     public DescriptionFragment() {
     }
@@ -52,15 +58,15 @@ public class DescriptionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_description, container, false);
         ButterKnife.bind(this, rootView);
+
         if (getArguments() != null) {
             String description = getArguments().getString(getString(R.string.arguments_description));
             String videoUri = getArguments().getString(getString(R.string.arguments_video));
 
             // check landscape mode
-            boolean isLand = getResources().getBoolean(R.bool.isLandScape);
+            boolean isLandScape = getResources().getBoolean(R.bool.isLandScape);
             boolean isTwoPane = getResources().getBoolean(R.bool.isTwoPane);
-            if(isLand && !isTwoPane){
-                setVideo(videoUri);
+            if (isLandScape && !isTwoPane) {
                 mDescription.setVisibility(View.GONE);
                 mLineBottom.setVisibility(View.GONE);
                 mLineTop.setVisibility(View.GONE);
@@ -70,12 +76,9 @@ public class DescriptionFragment extends Fragment {
                         1.0f
                 );
                 mExoLayout.setLayoutParams(param);
-
                 mExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
-                //mExoPlayerView.setSystemUiVisibility(
-                  //      View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            }
-            else{
+                setVideo(videoUri);
+            } else {
                 mDescription.setText(description);
                 setVideo(videoUri);
             }
@@ -87,13 +90,11 @@ public class DescriptionFragment extends Fragment {
         if (videoUri != null) {
             videoRelease = true;
             playVideo(Uri.parse(videoUri));
-        }
-        else {
+        } else {
             mExoPlayerView.setVisibility(View.GONE);
             mImage.setImageResource(R.drawable.confectionery);
             mImage.setVisibility(View.VISIBLE);
         }
-
     }
 
     private void playVideo(Uri videoUri) {

@@ -8,15 +8,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class IngredientsViewHolder extends RecyclerView.ViewHolder {
+
     @BindView(R.id.list_of_ingredients)
     TextView mListOfIngredients;
 
     public IngredientsViewHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
-
-
-
-
 }

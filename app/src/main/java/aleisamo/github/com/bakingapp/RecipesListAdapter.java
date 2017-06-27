@@ -12,9 +12,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesViewHolder> 
 
     private final List<Recipe> recipes;
     private OnItemClickListener clickListener;
-    Context context;
-
-
+    private Context context;
 
     public RecipesListAdapter(List<Recipe> recipes, Context context) {
         this.recipes = recipes;
@@ -25,8 +23,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesViewHolder> 
     public RecipesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_recipe, parent, false);
-        RecipesViewHolder recipesViewHolder = new RecipesViewHolder(v, clickListener, recipes);
-        return recipesViewHolder;
+        return new RecipesViewHolder(v, clickListener, recipes);
     }
 
     @Override
@@ -35,7 +32,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesViewHolder> 
         String recipeServings = recipes.get(position).getServings();
         String serving = context.getString(R.string.servings);
         holder.mTextView.setText(recipeName);
-        holder.mServingText.setText(serving+recipeServings);
+        holder.mServingText.setText(serving + recipeServings);
     }
 
     @Override

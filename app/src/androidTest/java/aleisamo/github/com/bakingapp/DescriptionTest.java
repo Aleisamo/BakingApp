@@ -1,7 +1,9 @@
 package aleisamo.github.com.bakingapp;
 
 
+import android.content.Context;
 import android.os.SystemClock;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -12,6 +14,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -34,7 +37,7 @@ public class DescriptionTest {
 
         SystemClock.sleep(3000);
 
-        onView(withId(R.id.recipe_details_step_recycleView)).
+        onView(allOf(withId(R.id.recipe_details_step_recycleView), isDisplayed())).
                 perform(actionOnItemAtPosition(0, click()));
 
         // Added a sleep statement to match the app's execution delay.
@@ -49,13 +52,15 @@ public class DescriptionTest {
         onView(allOf(withId(R.id.text_description), withText("Recipe Introduction"),
                 isDisplayed())).check(matches(withText("Recipe Introduction")));
 
-        ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.next), withText("Next"),
-                        isDisplayed()));
-        appCompatButton.perform(click());
-        SystemClock.sleep(2000);
+        Context targetContext = InstrumentationRegistry.getTargetContext();
+        boolean isTwoPane = targetContext.getResources().getBoolean(R.bool.isTwoPane);
 
-
+        if (isTwoPane) {
+            onView(withId(R.id.next)).check(doesNotExist());
+        } else {
+            ViewInteraction appCompatButton = onView(withId(R.id.next)).check(matches(isDisplayed()));
+            appCompatButton.perform(click());
+        }
     }
 
 }

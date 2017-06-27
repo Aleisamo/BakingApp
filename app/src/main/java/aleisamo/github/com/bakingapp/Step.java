@@ -4,17 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Step implements Parcelable {
+
     private String shortDescription;
     private String description;
     private String videoURL;
     private String thumbnailURL;
-
-    public Step(String shortDescription, String description, String videoUrl, String thumbnailUrl) {
-        this.shortDescription = shortDescription;
-        this.description = description;
-        this.videoURL = videoUrl;
-        this.thumbnailURL = thumbnailUrl;
-    }
 
     public String getShortDescription() {
         return shortDescription;

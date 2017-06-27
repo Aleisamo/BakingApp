@@ -12,41 +12,35 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Description extends AppCompatActivity {
+
+    private static final String CURRENT_POSITION = "current_position";
+
     @BindView(R.id.back)
     Button mBack;
+
     @BindView(R.id.next)
     Button mNext;
 
-    private final String CURRENT_POSITION = "current_position";
-
-    private String description;
-    private String video;
     private ArrayList<?> steps;
-    private int position;
     private int currentPosition;
-    String mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description);
         ButterKnife.bind(this);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (getIntent() == null) {
             return;
         }
-        Intent intent = getIntent();
-        mTitle = intent.getStringExtra(getString(R.string.title));
-        setTitle(mTitle);
 
+        Intent intent = getIntent();
+        setTitle(intent.getStringExtra(getString(R.string.title)));
         steps = intent.getParcelableArrayListExtra(getString(R.string.steps));
 
-        position = intent.getIntExtra(getString(R.string.position), 0);
-
         // restore state from share preferences
-        currentPosition = this.getSharedPreferences(getClass().getSimpleName(),
-                this.MODE_PRIVATE)
+        int position = intent.getIntExtra(getString(R.string.position), 0);
+        currentPosition = getSharedPreferences(getClass().getSimpleName(), MODE_PRIVATE)
                 .getInt(CURRENT_POSITION, position);
         display(currentPosition);
 
@@ -66,16 +60,18 @@ public class Description extends AppCompatActivity {
     }
 
     private void display(int position) {
-
         // save position when phone is rotated and avoid lose currently activity
-        this.getSharedPreferences(getClass().getSimpleName(), this.MODE_PRIVATE)
-                .edit().putInt(CURRENT_POSITION, position).apply();
+        getSharedPreferences(getClass().getSimpleName(), MODE_PRIVATE)
+                .edit()
+                .putInt(CURRENT_POSITION, position)
+                .apply();
 
         mBack.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         mNext.setVisibility(position == steps.size() - 1 ? View.GONE : View.VISIBLE);
 
         Step step = (Step) steps.get(position);
-        description = step.getDescription();
+        String description = step.getDescription();
+        String video;
         if (!step.getThumbnailURL().equals("")) {
             video = step.getThumbnailURL();
         } else if (!step.getVideoUrl().equals("")) {
@@ -87,14 +83,11 @@ public class Description extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putString(getString(R.string.arguments_description), description);
         args.putString(getString(R.string.arguments_video), video);
-        getSharedPreferences(getClass().getSimpleName(), MODE_PRIVATE)
-                .getInt(CURRENT_POSITION, position);
+
         DescriptionFragment descriptionFragment = new DescriptionFragment();
         descriptionFragment.setArguments(args);
         getSupportFragmentManager().beginTransaction().
                 replace(R.id.description, descriptionFragment)
                 .commit();
     }
-
-
 }

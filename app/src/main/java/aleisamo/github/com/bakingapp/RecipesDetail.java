@@ -3,9 +3,7 @@ package aleisamo.github.com.bakingapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,30 +19,25 @@ public class RecipesDetail extends AppCompatActivity implements OnItemClickListe
 
     @BindView(R.id.playerView)
     SimpleExoPlayerView mSimpleExoPlayerView;
+
     @BindView(R.id.back)
     Button mBack;
+
     @BindView(R.id.next)
     Button mNext;
+
     @BindView(R.id.viewlineTop)
     View mTop;
+
     @BindView(R.id.viewlineBottom)
     View mBottom;
+
     @BindView(R.id.text_description)
     TextView mDescription;
 
     private boolean mTwoPane;
     private String mTitle;
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +64,6 @@ public class RecipesDetail extends AppCompatActivity implements OnItemClickListe
         ArrayList<Parcelable> ingredients = intent.getParcelableArrayListExtra(getString(R.string.ingredients));
         ArrayList<Parcelable> steps = intent.getParcelableArrayListExtra(getString(R.string.steps));
         createRecipeDetailFragment(ingredients, steps);
-
-        //TODO call onItemSelected with position in savedInstanceState
     }
 
     private void createRecipeDetailFragment(ArrayList<Parcelable> ingredients, ArrayList<Parcelable> steps) {

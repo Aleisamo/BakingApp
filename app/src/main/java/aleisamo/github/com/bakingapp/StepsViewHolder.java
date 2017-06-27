@@ -11,8 +11,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class StepsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
     @BindView(R.id.card_short_description)
     CardView mCardShortDescription;
+
     @BindView(R.id.text_short_description)
     TextView mTextSHortDescription;
 
@@ -32,7 +34,6 @@ public class StepsViewHolder extends RecyclerView.ViewHolder implements View.OnC
         if (clickListener != null) {
             clickListener.onClick(v, getAdapterPosition(), steps);
         }
-
     }
 }
 
