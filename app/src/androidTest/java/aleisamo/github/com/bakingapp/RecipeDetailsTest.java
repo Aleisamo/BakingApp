@@ -1,9 +1,9 @@
 package aleisamo.github.com.bakingapp;
 
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
-import android.support.test.espresso.ViewInteraction;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -12,37 +12,29 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
-import static android.support.test.espresso.intent.Intents.intended;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasAction;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withParent;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class RecipeDetailsTest {
-    private static final String description = "Recipe Introduction";
+    private static final String RECIPE_NAME = "Nutella Pie";
 
 
     @Rule
-    public ActivityTestRule<RecipesDetail>mActivityTestRule = new ActivityTestRule<>(RecipesDetail.class);
+    public ActivityTestRule<MainBaking> mActivityTestRule = new ActivityTestRule<MainBaking>(MainBaking.class){
+        @Override
+        protected Intent getActivityIntent() {
+            Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+            //CharSequence title = InstrumentationRegistry.getTargetContext().getString(R.string.title);
+            Intent intentToRecipes = new Intent(context,RecipesDetail.class);
+            intentToRecipes.putExtra("recipe_name",RECIPE_NAME);
+            return super.getActivityIntent();
+        }
+    };
 
     @Test
-    public void  clickrRecycleviewItem_Pass_viddeo_description(){
-        SystemClock.sleep(3000);
-
-        ViewInteraction recycleViewSteps = onView(
-                allOf(withId(R.id.recipe_details_step_recycleView),
-                        withParent(allOf(withId(android.R.id.content))),
-                isDisplayed()));
-        recycleViewSteps.perform(actionOnItemAtPosition(0,click()));
-        SystemClock.sleep(3000);
-
-        intended(allOf(
-                hasAction(Intent.ACTION_SENDTO),
-                hasExtra(Intent.EXTRA_TEXT, description)));
+    public void toolbarTitle(){
+        onView(allOf(withText(RECIPE_NAME),isDisplayed()));
     }
 }

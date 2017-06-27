@@ -5,6 +5,7 @@ import java.util.List;
 public class Recipe {
 
     private String name;
+    private String servings;
 
     private List<Ingredient> ingredients ;
 
@@ -21,6 +22,10 @@ public class Recipe {
 
     public String getName() {
         return name;
+    }
+
+    public String getServings() {
+        return servings;
     }
 
     @Override

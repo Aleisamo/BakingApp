@@ -43,13 +43,13 @@ public class RecipeDetailFragment extends Fragment {
         if (getArguments() != null) {
             LinearLayoutManager llm = new LinearLayoutManager(getContext());
             mRecycleRecipeDetail.setLayoutManager(llm);
-            ArrayList<Ingredient> ingredients = getArguments().getParcelableArrayList("ARGUMENT_INGREDIENTS");
+            ArrayList<Ingredient> ingredients = getArguments().getParcelableArrayList(getString(R.string.ingredients));
             ListOfIngredientsAdapter adapter = new ListOfIngredientsAdapter(ingredients);
             // Adapter for ingredients
             mRecycleRecipeDetail.setAdapter(adapter);
             LinearLayoutManager llmSteps = new LinearLayoutManager(getContext());
             mRecycleSteps.setLayoutManager(llmSteps);
-            ArrayList<Step> steps = getArguments().getParcelableArrayList("ARGUMENT_STEPS");
+            ArrayList<Step> steps = getArguments().getParcelableArrayList(getString(R.string.steps));
             // Adapter for Steps
             StepsAdapter stepsAdapter = new StepsAdapter(steps);
             mRecycleSteps.setAdapter(stepsAdapter);

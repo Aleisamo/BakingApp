@@ -64,12 +64,12 @@ public class RecipesDetail extends AppCompatActivity implements OnItemClickListe
         }
 
         Intent intent = getIntent();
-        mTitle = intent.getStringExtra("title");
+        mTitle = intent.getStringExtra(getString(R.string.title));
         if (mTitle != null) {
             setTitle(mTitle);
         }
-        ArrayList<Parcelable> ingredients = intent.getParcelableArrayListExtra("ingredients");
-        ArrayList<Parcelable> steps = intent.getParcelableArrayListExtra("steps");
+        ArrayList<Parcelable> ingredients = intent.getParcelableArrayListExtra(getString(R.string.ingredients));
+        ArrayList<Parcelable> steps = intent.getParcelableArrayListExtra(getString(R.string.steps));
         createRecipeDetailFragment(ingredients, steps);
 
         //TODO call onItemSelected with position in savedInstanceState
@@ -77,8 +77,8 @@ public class RecipesDetail extends AppCompatActivity implements OnItemClickListe
 
     private void createRecipeDetailFragment(ArrayList<Parcelable> ingredients, ArrayList<Parcelable> steps) {
         Bundle args = new Bundle();
-        args.putParcelableArrayList("ARGUMENT_INGREDIENTS", ingredients);
-        args.putParcelableArrayList("ARGUMENT_STEPS", steps);
+        args.putParcelableArrayList(getString(R.string.ingredients), ingredients);
+        args.putParcelableArrayList(getString(R.string.steps), steps);
 
         RecipeDetailFragment recipeDetailFragment = new RecipeDetailFragment();
         recipeDetailFragment.setArguments(args);
@@ -103,8 +103,8 @@ public class RecipesDetail extends AppCompatActivity implements OnItemClickListe
                 video = null;
             }
             Bundle args = new Bundle();
-            args.putString("ARGUMENTS_DESCRIPTION", description);
-            args.putString("ARGUMENTS_VIDEO", video);
+            args.putString(getString(R.string.arguments_description), description);
+            args.putString(getString(R.string.arguments_video), video);
             DescriptionFragment descriptionFragment = new DescriptionFragment();
             descriptionFragment.setArguments(args);
             getSupportFragmentManager().beginTransaction().
@@ -112,9 +112,9 @@ public class RecipesDetail extends AppCompatActivity implements OnItemClickListe
                     .commit();
         } else {
             Intent intent = new Intent(this, Description.class);
-            intent.putExtra("title", mTitle);
-            intent.putExtra("position", position);
-            intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) list);
+            intent.putExtra(getString(R.string.title), mTitle);
+            intent.putExtra(getString(R.string.position), position);
+            intent.putParcelableArrayListExtra(getString(R.string.steps), (ArrayList<? extends Parcelable>) list);
             startActivity(intent);
         }
 

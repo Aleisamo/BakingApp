@@ -7,8 +7,6 @@
     <Button
         android:id="@+id/back"
         style="@style/ButtonStyle"
-        android:layout_width="70dp"
-        android:layout_height="43dp"
         android:text="@string/back_to_previous"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
@@ -16,8 +14,6 @@
     <Button
         android:id="@+id/next"
         style="@style/ButtonStyle"
-        android:layout_width="70dp"
-        android:layout_height="43dp"
         android:text="@string/next_step"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"/>

@@ -17,6 +17,8 @@ public class Description extends AppCompatActivity {
     @BindView(R.id.next)
     Button mNext;
 
+    private final String CURRENT_POSITION = "current_position";
+
     private String description;
     private String video;
     private ArrayList<?> steps;
@@ -35,17 +37,17 @@ public class Description extends AppCompatActivity {
             return;
         }
         Intent intent = getIntent();
-        mTitle = intent.getStringExtra("title");
+        mTitle = intent.getStringExtra(getString(R.string.title));
         setTitle(mTitle);
 
-        steps = intent.getParcelableArrayListExtra("steps");
+        steps = intent.getParcelableArrayListExtra(getString(R.string.steps));
 
-        position = intent.getIntExtra("position", 0);
+        position = intent.getIntExtra(getString(R.string.position), 0);
 
         // restore state from share preferences
         currentPosition = this.getSharedPreferences(getClass().getSimpleName(),
                 this.MODE_PRIVATE)
-                .getInt("currentPosition", position);
+                .getInt(CURRENT_POSITION, position);
         display(currentPosition);
 
         mBack.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +69,7 @@ public class Description extends AppCompatActivity {
 
         // save position when phone is rotated and avoid lose currently activity
         this.getSharedPreferences(getClass().getSimpleName(), this.MODE_PRIVATE)
-                .edit().putInt("currentPosition", position).apply();
+                .edit().putInt(CURRENT_POSITION, position).apply();
 
         mBack.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         mNext.setVisibility(position == steps.size() - 1 ? View.GONE : View.VISIBLE);
@@ -83,10 +85,10 @@ public class Description extends AppCompatActivity {
         }
 
         Bundle args = new Bundle();
-        args.putString("ARGUMENTS_DESCRIPTION", description);
-        args.putString("ARGUMENTS_VIDEO", video);
+        args.putString(getString(R.string.arguments_description), description);
+        args.putString(getString(R.string.arguments_video), video);
         getSharedPreferences(getClass().getSimpleName(), MODE_PRIVATE)
-                .getInt("Current position", position);
+                .getInt(CURRENT_POSITION, position);
         DescriptionFragment descriptionFragment = new DescriptionFragment();
         descriptionFragment.setArguments(args);
         getSupportFragmentManager().beginTransaction().

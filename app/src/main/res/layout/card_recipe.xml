@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <!-- display & contains widget_list_ingredients card-->
     <android.support.v7.widget.CardView
         android:id="@+id/recipes_cardView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        card_view:cardCornerRadius="5dp"
-        card_view:cardElevation="5dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:cardBackgroundColor ="@color/colorBackground">
-            <TextView android:id="@+id/recipe_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:gravity="center_horizontal"
-                android:textSize="30sp"
-                android:fontFamily="cursive" />
+        android:layout_height="@dimen/CardViewRecipe_height"
+        style="@style/Recipe_CardView">
+        <TextView
+            android:id="@+id/recipe_card"
+            style="@style/Recipe_cardText"
+            android:textSize="@dimen/RecipeLargeSize"
+            android:gravity="center_horizontal" />
+        <TextView
+            android:id="@+id/recipe_servings"
+            style="@style/Recipe_cardText"
+            android:textSize="@dimen/RecipeSmallSize"
+            android:layout_gravity="bottom"/>
+
     </android.support.v7.widget.CardView>
 </LinearLayout>
 

@@ -1,72 +1,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark"
     android:padding="@dimen/widget_margin">
 
     <TextView
         android:id="@+id/appwidget_text"
-        android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="48dp"
-        android:paddingLeft="10dp"
+        style="@style/Widget_textStyle"
+        android:background="@color/colorPrimaryDark"
+        android:paddingLeft="@dimen/Widgets_name_padding_left"
+        android:paddingBottom="@dimen/Widgets_name_padding_bottom"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:contentDescription="@string/baking_now"
         android:text="@string/baking_now"
         android:textColor="@android:color/white"
-        android:textSize="30sp"
-        android:fontFamily="cursive"
-        android:textStyle="bold"/>
+        android:textSize="@dimen/RecipeLargeSize"/>
 
     <TextView
         android:id="@+id/recipe_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingLeft="10dp"
-        android:background="@color/colorRecipeName"
-        android:layout_marginBottom="8dp"
-        android:textSize="28sp"
-        android:textColor="@android:color/white"
-        android:fontFamily="cursive"
-        android:textStyle="bold" />
+        style="@style/Widget_textStyle"
+        android:paddingLeft="@dimen/Widgets_name_padding_left"
+        android:paddingBottom="@dimen/Widgets_name_padding_bottom"
+        android:text="@string/baking_text"
+        android:background="@color/colorPrimary"
+        android:textSize="@dimen/Widgets_Recipe_name"
+        android:textColor="@android:color/white"/>
+
+
     <ListView
         android:id="@+id/list_ingredients"
-        android:padding="20dp"
+        android:padding="@dimen/Widgets_list_padding"
         android:layout_width="wrap_content"
-        android:layout_height="210dp"/>
+        android:layout_height="@dimen/Widgets_list_height"/>
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:id="@+id/empty_view"
+        style="@style/Widget_textStyle"
+        android:padding="@dimen/Widgets_text_padding"
         android:text="@string/baking_text"
-        android:fontFamily="cursive"
-        android:textSize="24sp"
-        android:id="@+id/empty_view"/>
+        android:textSize="@dimen/Widgets_Recipe_name"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/Widget_textStyle"
             android:layout_centerInParent="true"
             android:textAlignment="center"
             android:text="@string/change_recipe"
-            android:textSize="16sp"
-            android:textColor="@android:color/darker_gray"
-            android:fontFamily="cursive"
-            android:textStyle="bold"/>
+            android:textSize="@dimen/RecipeSmallSize"
+            android:textColor="@android:color/darker_gray"/>
         <ImageView
-            android:alpha="0.6"
             android:id="@+id/change_recipe"
+            android:alpha="0.6"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
 
     </RelativeLayout>
 

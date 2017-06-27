@@ -17,4 +17,14 @@
     <string name="baking_now">BakingApp widget!!</string>
     <string name="add_widget">Add widget</string>
     <string name="change_recipe">Change Recipe</string>
+    <string name="servings">Serves: </string>
+    <string name="title">title</string>
+    <string name="ingredients">ingredients</string>
+    <string name="steps">steps</string>
+    <string name="arguments_ingredients">arguments_ingredients</string>
+    <string name="arguments_description">description</string>
+    <string name="arguments_video">video</string>
+    <string name="position">position</string>
+    <string name="check_connection">Network is no available check connection </string>
+
 </resources>

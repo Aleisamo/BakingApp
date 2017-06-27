@@ -1,11 +1,8 @@
 package aleisamo.github.com.bakingapp;
 
-import android.app.NotificationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v4.media.session.PlaybackStateCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,9 +30,6 @@ import butterknife.ButterKnife;
 
 public class DescriptionFragment extends Fragment {
     private SimpleExoPlayer mExoPlayerVideo;
-    private static MediaSessionCompat mMediaSession;
-    private PlaybackStateCompat.Builder mStateBuilder;
-    private NotificationManager mNotificationManager;
     private boolean videoRelease;
     @BindView(R.id.playerView)
     SimpleExoPlayerView mExoPlayerView;
@@ -59,8 +53,8 @@ public class DescriptionFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_description, container, false);
         ButterKnife.bind(this, rootView);
         if (getArguments() != null) {
-            String description = getArguments().getString("ARGUMENTS_DESCRIPTION");
-            String videoUri = getArguments().getString("ARGUMENTS_VIDEO");
+            String description = getArguments().getString(getString(R.string.arguments_description));
+            String videoUri = getArguments().getString(getString(R.string.arguments_video));
 
             // check landscape mode
             boolean isLand = getResources().getBoolean(R.bool.isLandScape);
@@ -110,7 +104,7 @@ public class DescriptionFragment extends Fragment {
             mExoPlayerView.setPlayer(mExoPlayerVideo);
 
             // prepare the VideoResource
-            String mediaPlayer = Util.getUserAgent(getContext(), "StepbyStep");
+            String mediaPlayer = Util.getUserAgent(getContext(), "Step by Step");
             MediaSource mediaSource = new ExtractorMediaSource(videoUri,
                     new DefaultDataSourceFactory(getContext(), mediaPlayer),
                     new DefaultExtractorsFactory(), null, null);

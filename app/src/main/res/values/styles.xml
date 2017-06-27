@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="CardRecipes" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:background">@color/colorBackground</item>
     </style>
@@ -20,6 +21,7 @@
         <item name="android:layout_margin">16dp</item>
         <item name="android:textColor">@android:color/darker_gray</item>
     </style>
+
     <style name="TextStyle">
         <item name="android:textSize">20sp</item>
         <item name="android:layout_gravity">center_horizontal</item>
@@ -34,13 +36,43 @@
         <item name="android:layout_width">352dp</item>
         <item name="android:layout_height">172dp</item>
     </style>
+
     <style name="CardViewTextStyle">
         <item name="android:textColor">@android:color/darker_gray</item>
-        <item name= "android:textSize">25sp</item>
+        <item name="android:textSize">25sp</item>
         <item name="android:paddingRight">20dp</item>
         <item name="android:layout_marginBottom">20dp</item>
-
         <item name="android:fontFamily">cursive</item>
+    </style>
+
+    <style name="Recipe_CardView" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="cardBackgroundColor">@color/colorBackground</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="cardElevation">5dp</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <style name="Recipe_cardText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:fontFamily">cursive</item>
+    </style>
+    <style name="selectableStepTheme">
+        <item name="android:colorControlHighlight">@color/colorAccent</item>
+    </style>
+
+    <style name="SelectableItemBackground">
+        <item name="android:theme">@style/selectableStepTheme</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+    <style name="Widget_textStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">cursive</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

@@ -1,5 +1,6 @@
 package aleisamo.github.com.bakingapp;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,13 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesViewHolder> 
 
     private final List<Recipe> recipes;
     private OnItemClickListener clickListener;
+    Context context;
 
-    public RecipesListAdapter(List<Recipe> recipes) {
+
+
+    public RecipesListAdapter(List<Recipe> recipes, Context context) {
         this.recipes = recipes;
+        this.context = context;
     }
 
     @Override
@@ -27,7 +32,10 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesViewHolder> 
     @Override
     public void onBindViewHolder(RecipesViewHolder holder, int position) {
         String recipeName = recipes.get(position).getName();
+        String recipeServings = recipes.get(position).getServings();
+        String serving = context.getString(R.string.servings);
         holder.mTextView.setText(recipeName);
+        holder.mServingText.setText(serving+recipeServings);
     }
 
     @Override

@@ -10,5 +10,5 @@
     android:id="@+id/recipe_recycleView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"/>
+    android:padding="@dimen/fragment_text_margin_left"/>
 </LinearLayout>

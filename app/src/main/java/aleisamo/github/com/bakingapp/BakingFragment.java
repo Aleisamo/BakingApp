@@ -66,9 +66,9 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
         List<Ingredient> ingredients = recipe.getIngredients();
         //Log.v("ingredients", String.valueOf(ingredients));
         Intent intent = new Intent(getContext(), RecipesDetail.class);
-        intent.putExtra("title", recipe.getName());
-        intent.putParcelableArrayListExtra("ingredients", (ArrayList<? extends Parcelable>) recipe.getIngredients());
-        intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) recipe.getSteps());
+        intent.putExtra(getString(R.string.title), recipe.getName());
+        intent.putParcelableArrayListExtra(getString(R.string.ingredients), (ArrayList<? extends Parcelable>) recipe.getIngredients());
+        intent.putParcelableArrayListExtra(getString(R.string.steps), (ArrayList<? extends Parcelable>) recipe.getSteps());
         getContext().startActivity(intent);
 
         // use singleton to populate list of recipes and set recipe name Widget
@@ -84,14 +84,14 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 List<Recipe>recipes = response.body();
                 mRecipes= recipes;
-                RecipesListAdapter adapter = new RecipesListAdapter(recipes);
+                RecipesListAdapter adapter = new RecipesListAdapter(recipes,getContext());
                 mRecycleRecipes.setAdapter(adapter);
                 adapter.setClickListener(onItemClickListener);
             }
 
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Log.d(BakingFragment.class.getSimpleName(), "network issues");
+                Log.d(BakingFragment.class.getSimpleName(),getString(R.string.check_connection));
 
             }
         };

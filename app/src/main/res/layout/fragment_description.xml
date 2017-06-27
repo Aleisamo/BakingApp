@@ -31,14 +31,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.3"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:orientation="vertical">
 
         <View
             android:id="@+id/viewlineTop"
-            android:paddingTop="16dp"
+            android:paddingTop="@dimen/fragment_text_padding_top"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/View_height"
             android:background="@color/colorPrimary"/>
             <TextView
                 android:id="@+id/text_description"
@@ -46,12 +45,12 @@
                 android:layout_height="wrap_content"
                 android:text="description here"
                 style="@style/TextStyle"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginLeft="@dimen/fragment_text_margin_left"
+                android:layout_marginTop="@dimen/fragment_text_margin_top"/>
         <View
             android:id="@+id/viewlineBottom"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/View_height"
             android:background="@color/colorPrimary"/>
 
     </LinearLayout>

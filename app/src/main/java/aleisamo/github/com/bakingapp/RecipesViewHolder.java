@@ -15,6 +15,8 @@ public class RecipesViewHolder extends RecyclerView.ViewHolder implements View.O
     CardView mCardView;
     @BindView(R.id.recipe_card)
     TextView mTextView;
+    @BindView(R.id.recipe_servings)
+    TextView mServingText;
 
     private final OnItemClickListener clickListener;
     private final List<Recipe> recipes;
