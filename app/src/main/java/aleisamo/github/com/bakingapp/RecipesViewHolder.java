@@ -3,6 +3,7 @@ package aleisamo.github.com.bakingapp;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,6 +21,9 @@ public class RecipesViewHolder extends RecyclerView.ViewHolder implements View.O
 
     @BindView(R.id.recipe_servings)
     TextView mServingText;
+
+    @BindView(R.id.recipe_image)
+    ImageView mRecipeImage;
 
     private final OnItemClickListener clickListener;
     private final List<Recipe> recipes;

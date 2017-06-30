@@ -83,19 +83,18 @@ public class RecipesDetail extends AppCompatActivity implements OnItemClickListe
     public void onClick(View view, int position, List<?> list) {
         String description;
         String video;
+        String imageThumbnail;
+
         if (mTwoPane) {
             Step step = (Step) list.get(position);
             description = step.getDescription();
-            if (!step.getThumbnailURL().equals("")) {
-                video = step.getThumbnailURL();
-            } else if (!step.getVideoUrl().equals("")) {
-                video = step.getVideoUrl();
-            } else {
-                video = null;
-            }
+            imageThumbnail = step.getThumbnailURL();
+            video = step.getVideoUrl();
+
             Bundle args = new Bundle();
             args.putString(getString(R.string.arguments_description), description);
             args.putString(getString(R.string.arguments_video), video);
+            args.putString(getString(R.string.arguments_image), imageThumbnail);
             DescriptionFragment descriptionFragment = new DescriptionFragment();
             descriptionFragment.setArguments(args);
             getSupportFragmentManager().beginTransaction().

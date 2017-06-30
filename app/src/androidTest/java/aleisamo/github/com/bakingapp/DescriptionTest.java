@@ -37,8 +37,8 @@ public class DescriptionTest {
 
         SystemClock.sleep(3000);
 
-        onView(allOf(withId(R.id.recipe_details_step_recycleView), isDisplayed())).
-                perform(actionOnItemAtPosition(0, click()));
+        onView(allOf(withId(R.id.recipe_details_step_recycleView), isDisplayed()))
+                .perform(actionOnItemAtPosition(0, click()));
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
@@ -49,8 +49,8 @@ public class DescriptionTest {
             e.printStackTrace();
         }
 
-        onView(allOf(withId(R.id.text_description), withText("Recipe Introduction"),
-                isDisplayed())).check(matches(withText("Recipe Introduction")));
+        onView(allOf(withId(R.id.text_description), withText("Recipe Introduction"), isDisplayed()))
+                .check(matches(withText("Recipe Introduction")));
 
         Context targetContext = InstrumentationRegistry.getTargetContext();
         boolean isTwoPane = targetContext.getResources().getBoolean(R.bool.isTwoPane);

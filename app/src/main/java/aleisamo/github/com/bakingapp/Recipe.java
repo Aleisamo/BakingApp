@@ -6,6 +6,7 @@ public class Recipe {
 
     private String name;
     private String servings;
+    private String image;
 
     private List<Ingredient> ingredients;
 
@@ -28,6 +29,9 @@ public class Recipe {
 
     public String getServings() {
         return servings;
+    }
+    public String getImage(){
+        return image;
     }
 
     @Override

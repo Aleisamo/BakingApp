@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class RecipesListAdapter extends RecyclerView.Adapter<RecipesViewHolder> {
@@ -33,6 +35,17 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesViewHolder> 
         String serving = context.getString(R.string.servings);
         holder.mTextView.setText(recipeName);
         holder.mServingText.setText(serving + recipeServings);
+        hasImage(position,holder,context);
+    }
+    // check image available
+    public void hasImage(int position, RecipesViewHolder holder, Context context) {
+        String imagePath = recipes.get(position).getImage();
+        if (imagePath.isEmpty()) {
+            holder.mRecipeImage.setImageResource(R.drawable.confectionery);
+        }
+        else{
+            Picasso.with(context).load(imagePath).into(holder.mRecipeImage);
+        }
     }
 
     @Override

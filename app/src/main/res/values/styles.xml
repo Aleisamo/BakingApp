@@ -54,12 +54,19 @@
     </style>
 
     <style name="Recipe_cardText">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">270dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">20dp</item>
         <item name="android:textSize">25sp</item>
         <item name="android:fontFamily">cursive</item>
     </style>
+    <style name="Recipe_cardImage">
+        <item name="android:layout_width">63dp</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_gravity">right</item>
+    </style>
+
     <style name="selectableStepTheme">
         <item name="android:colorControlHighlight">@color/colorAccent</item>
     </style>

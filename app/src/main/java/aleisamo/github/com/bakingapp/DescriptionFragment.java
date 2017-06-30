@@ -3,6 +3,7 @@ package aleisamo.github.com.bakingapp;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +34,7 @@ public class DescriptionFragment extends Fragment {
 
     private SimpleExoPlayer mExoPlayerVideo;
     private boolean videoRelease;
+    private MediaSessionCompat mMediaSession;
 
     @BindView(R.id.playerView)
     SimpleExoPlayerView mExoPlayerView;
@@ -40,7 +43,7 @@ public class DescriptionFragment extends Fragment {
     TextView mDescription;
 
     @BindView(R.id.imageCupcake)
-    ImageView mImage;
+    ImageView mImageThumbnail;
 
     @BindView(R.id.viewlineTop)
     View mLineTop;
@@ -62,6 +65,7 @@ public class DescriptionFragment extends Fragment {
         if (getArguments() != null) {
             String description = getArguments().getString(getString(R.string.arguments_description));
             String videoUri = getArguments().getString(getString(R.string.arguments_video));
+            String imageThumbnail = getArguments().getString(getString(R.string.arguments_image));
 
             // check landscape mode
             boolean isLandScape = getResources().getBoolean(R.bool.isLandScape);
@@ -77,23 +81,30 @@ public class DescriptionFragment extends Fragment {
                 );
                 mExoLayout.setLayoutParams(param);
                 mExoPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
-                setVideo(videoUri);
             } else {
                 mDescription.setText(description);
-                setVideo(videoUri);
             }
+            setMedia(videoUri, imageThumbnail);
         }
         return rootView;
     }
 
-    private void setVideo(String videoUri){
-        if (videoUri != null) {
+    private void setMedia(String videoUri, String imageThumbnail) {
+        if (videoUri.isEmpty()) {
+            mExoPlayerView.setVisibility(View.GONE);
+            mImageThumbnail.setVisibility(View.VISIBLE);
+            setImage(imageThumbnail);
+        } else {
             videoRelease = true;
             playVideo(Uri.parse(videoUri));
+        }
+    }
+
+    private void setImage(String imageThumbnail) {
+        if (imageThumbnail.isEmpty()) {
+            mImageThumbnail.setImageResource(R.drawable.confectionery);
         } else {
-            mExoPlayerView.setVisibility(View.GONE);
-            mImage.setImageResource(R.drawable.confectionery);
-            mImage.setVisibility(View.VISIBLE);
+            Picasso.with(getContext()).load(imageThumbnail).into(mImageThumbnail);
         }
     }
 
@@ -116,15 +127,15 @@ public class DescriptionFragment extends Fragment {
 
     private void releasePlayer() {
         if (videoRelease) {
+            mExoPlayerVideo.stop();
             mExoPlayerVideo.release();
             mExoPlayerVideo = null;
         }
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         releasePlayer();
     }
-
 }
