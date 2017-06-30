@@ -1,6 +1,5 @@
 package aleisamo.github.com.bakingapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,7 @@ import butterknife.ButterKnife;
 
 public class Description extends AppCompatActivity {
 
-    private static final String CURRENT_POSITION = "current_position";
+    private static int currentPosition = -1;
 
     @BindView(R.id.back)
     Button mBack;
@@ -23,8 +22,6 @@ public class Description extends AppCompatActivity {
     Button mNext;
 
     private ArrayList<?> steps;
-
-    private int currentPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +37,9 @@ public class Description extends AppCompatActivity {
         setTitle(intent.getStringExtra(getString(R.string.title)));
         steps = intent.getParcelableArrayListExtra(getString(R.string.steps));
         int position = intent.getIntExtra(getString(R.string.position), 0);
-        currentPosition = getSharedPreferences(getClass().getSimpleName(), Context.MODE_PRIVATE)
-                .getInt(CURRENT_POSITION, position);
+        if (currentPosition < 0) {
+            currentPosition = position;
+        }
         // restore state from share preferences
         display(currentPosition);
 
@@ -61,11 +59,6 @@ public class Description extends AppCompatActivity {
     }
 
     private void display(int position) {
-        // save position when phone is rotated and avoid lose currently activity
-        getSharedPreferences(getClass().getSimpleName(), MODE_PRIVATE)
-                .edit()
-                .putInt(CURRENT_POSITION, position)
-                .apply();
         mBack.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
         mNext.setVisibility(position == steps.size() - 1 ? View.GONE : View.VISIBLE);
         Step step = (Step) steps.get(position);
@@ -88,13 +81,6 @@ public class Description extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        cleanPreferences();
-    }
-
-    private void cleanPreferences() {
-        getSharedPreferences(getClass().getSimpleName(), MODE_PRIVATE)
-                .edit()
-                .remove(CURRENT_POSITION)
-                .apply();
+        currentPosition = -1;
     }
 }
