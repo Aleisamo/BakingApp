@@ -9,20 +9,25 @@ public class MainBaking extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main_baking);
 
         if (savedInstanceState == null) {
-            // create widget_list_ingredients card fragment
-            BakingFragment recipeCardFragment = new BakingFragment();
-
-            // add fragment to its using Fragment manager
-            FragmentManager fragmentManager = getSupportFragmentManager();
-
-            // transaction
-            fragmentManager.beginTransaction()
-                    .add(R.id.recipecardfragment, recipeCardFragment)
-                    .commit();
+            createFragment();
         }
+    }
+
+    private void createFragment() {
+        // create widget_list_ingredients card fragment
+        BakingFragment recipeCardFragment = new BakingFragment();
+
+        // add fragment to the activity using Fragment manager
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        // transaction
+        fragmentManager.beginTransaction()
+                .replace(R.id.recipecardfragment, recipeCardFragment)
+                .commit();
     }
 
 }

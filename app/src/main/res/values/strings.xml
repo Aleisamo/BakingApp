@@ -27,5 +27,6 @@
     <string name="position">position</string>
     <string name="check_connection">Network is no available check connection </string>
     <string name="arguments_image">imageThumbnail</string>
+    <string name="recipeList">RecipeList</string>
 
 </resources>

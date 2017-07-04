@@ -28,7 +28,6 @@ public class Description extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description);
         ButterKnife.bind(this);
-
         if (getIntent() == null) {
             return;
         }
@@ -83,4 +82,5 @@ public class Description extends AppCompatActivity {
         super.onBackPressed();
         currentPosition = -1;
     }
+
 }

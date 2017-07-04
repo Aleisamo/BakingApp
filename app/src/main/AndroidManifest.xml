@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainBaking"
-            android:configChanges="orientation|keyboardHidden|screenSize">
+            android:name=".MainBaking">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,13 +21,22 @@
         </activity>
         <activity
             android:name=".RecipesDetail"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/detail_recipes"/>
+            android:label="@string/detail_recipes"
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainBaking">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainBaking"/>
+        </activity>
 
         <activity
             android:name=".Description"
-            android:configChanges="orientation"
-            android:label="Description"/>
+            android:label="Description"
+            android:parentActivityName=".RecipesDetail">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".RecipesDetail"/>
+        </activity>
 
         <receiver android:name=".BakingWidget.BakingAppWidget">
             <intent-filter>

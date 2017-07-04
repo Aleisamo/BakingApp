@@ -30,16 +30,17 @@
                 android:gravity="center" />
         </android.support.v7.widget.CardView>
         <!-- display list of recipes -->
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recipe_details_recycleView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
                 android:padding="@dimen/fragment_text_margin"/>
-        </ScrollView>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -59,9 +60,10 @@
             android:text="@string/Steps"
             android:fontFamily="cursive"
             android:textSize="@dimen/RecipeLargeSize"/>
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             >
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recipe_details_step_recycleView"
@@ -69,6 +71,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
                 android:padding="@dimen/fragment_text_margin"/>
-        </ScrollView>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

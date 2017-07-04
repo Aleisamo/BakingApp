@@ -3,6 +3,7 @@ package aleisamo.github.com.bakingapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,19 +27,22 @@ import retrofit2.Response;
 
 public class BakingFragment extends Fragment implements OnItemClickListener {
 
+    private static final String LAYOUT_MANAGER = "layoutManager";
     LinearLayoutManager llm;
     GridLayoutManager glm;
+
 
     @BindView(R.id.recipe_recycleView)
     RecyclerView mRecycleRecipes;
 
-    private List<Recipe> recipes;
 
     public BakingFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         View rootView = inflater.inflate(R.layout.fragment_list_recipes, container, false);
         // bind the view
         ButterKnife.bind(this, rootView);
@@ -47,8 +51,8 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
         FetchRecipes fetchRecipes = new FetchRecipes();
         fetchRecipes.fetchRecipes(callback);
 
-        boolean twoPane = getResources().getBoolean(R.bool.isTwoPane);
-        if (twoPane) {
+
+        if (isTwoPane()) {
             int numberOfColumns = 2;
             glm = new GridLayoutManager(getContext(), numberOfColumns);
             mRecycleRecipes.setLayoutManager(glm);
@@ -58,6 +62,39 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (isTwoPane()) {
+            Parcelable currentState = glm.onSaveInstanceState();
+            outState.putParcelable(LAYOUT_MANAGER, currentState);
+        } else {
+            Parcelable currentState = llm.onSaveInstanceState();
+            outState.putParcelable(LAYOUT_MANAGER, currentState);
+        }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState == null) {
+            return;
+        }
+
+        if (isTwoPane()) {
+            glm.onRestoreInstanceState(savedInstanceState.getParcelable(LAYOUT_MANAGER));
+
+        } else {
+            llm.onRestoreInstanceState(savedInstanceState.getParcelable(LAYOUT_MANAGER));
+        }
+    }
+
+    private boolean isTwoPane() {
+        return getResources().getBoolean(R.bool.isTwoPane);
     }
 
     @Override
@@ -77,12 +114,13 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
         BakingAppWidget.updateAppWidgets(getContext());
     }
 
+
     private Callback<List<Recipe>> listCallback(final OnItemClickListener onItemClickListener) {
         return new Callback<List<Recipe>>() {
 
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
-                recipes = response.body();
+                List<Recipe> recipes = response.body();
                 RecipesListAdapter adapter = new RecipesListAdapter(recipes, getContext());
                 mRecycleRecipes.setAdapter(adapter);
                 adapter.setClickListener(onItemClickListener);
@@ -94,5 +132,7 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
             }
         };
     }
+
+
 }
 

@@ -51,6 +51,8 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesViewHolder> 
     @Override
     public int getItemCount() {
         return recipes.size();
+       // return recipes == null ? 0 : recipes.size();
+
     }
 
     public void setClickListener(OnItemClickListener itemClickListener) {

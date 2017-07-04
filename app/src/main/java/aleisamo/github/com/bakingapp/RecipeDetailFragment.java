@@ -2,6 +2,8 @@ package aleisamo.github.com.bakingapp;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,14 +19,22 @@ import butterknife.ButterKnife;
 
 public class RecipeDetailFragment extends Fragment {
 
+    private static final String LAYOUT_INGREDIENTS = "layoutManagerIngredients";
+    private static final String LAYOUT_STEPS = "layoutManagerSteps";
+
+
     @BindView(R.id.recipe_details_recycleView)
-    RecyclerView mRecycleRecipeDetail;
+    RecyclerView mIngredientsView;
 
     @BindView(R.id.recipe_details_step_recycleView)
-    RecyclerView mRecycleSteps;
+    RecyclerView mStepsView;
 
     @BindView(R.id.card)
     CardView mCard;
+
+
+    private LinearLayoutManager ingredientsLlm;
+    private LinearLayoutManager stepsLlm;
 
     public RecipeDetailFragment() {
     }
@@ -43,24 +53,44 @@ public class RecipeDetailFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         if (getArguments() != null) {
-            LinearLayoutManager llm = new LinearLayoutManager(getContext());
-            mRecycleRecipeDetail.setLayoutManager(llm);
+            ingredientsLlm = new LinearLayoutManager(getContext());
+            mIngredientsView.setLayoutManager(ingredientsLlm);
             ArrayList<Ingredient> ingredients = getArguments().getParcelableArrayList(getString(R.string.ingredients));
             ListOfIngredientsAdapter adapter = new ListOfIngredientsAdapter(ingredients);
             // Adapter for ingredients
-            mRecycleRecipeDetail.setAdapter(adapter);
-            LinearLayoutManager llmSteps = new LinearLayoutManager(getContext());
-            mRecycleSteps.setLayoutManager(llmSteps);
+            mIngredientsView.setAdapter(adapter);
+            stepsLlm = new LinearLayoutManager(getContext());
+            mStepsView.setLayoutManager(stepsLlm);
             ArrayList<Step> steps = getArguments().getParcelableArrayList(getString(R.string.steps));
             // Adapter for Steps
             StepsAdapter stepsAdapter = new StepsAdapter(steps);
-            mRecycleSteps.setAdapter(stepsAdapter);
+            mStepsView.setAdapter(stepsAdapter);
             stepsAdapter.setClickListener(callback);
         }
 
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Parcelable csIngredients = ingredientsLlm.onSaveInstanceState();
+        outState.putParcelable(LAYOUT_INGREDIENTS,csIngredients);
+        Parcelable csSteps = stepsLlm.onSaveInstanceState();
+        outState.putParcelable(LAYOUT_STEPS,csSteps);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState == null){
+            return;
+        }
+        ingredientsLlm.onRestoreInstanceState(savedInstanceState.getParcelable(LAYOUT_INGREDIENTS));
+        ingredientsLlm.setOrientation(LinearLayoutManager.VERTICAL);
+        stepsLlm.setOrientation(LinearLayoutManager.VERTICAL);
+        stepsLlm.onRestoreInstanceState(savedInstanceState.getParcelable(LAYOUT_STEPS));
+    }
 }
 
 

@@ -2,6 +2,7 @@ package aleisamo.github.com.bakingapp;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.view.LayoutInflater;
@@ -32,6 +33,12 @@ import butterknife.ButterKnife;
 
 public class DescriptionFragment extends Fragment {
 
+    // Key save state
+    private static final String DESCRIPTION = "description";
+    private static final String VIDEO_PATH= "video_path";
+    private static final String IMAGE_PATH = "image_path";
+
+
     private SimpleExoPlayer mExoPlayerVideo;
     private boolean videoRelease;
     private MediaSessionCompat mMediaSession;
@@ -53,8 +60,30 @@ public class DescriptionFragment extends Fragment {
 
     @BindView(R.id.exo_layout_id)
     RelativeLayout mExoLayout;
+    private String description;
+    private String videoUri;
+    private String imageThumbnail;
 
     public DescriptionFragment() {
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(DESCRIPTION,description);
+        outState.putString(VIDEO_PATH,videoUri);
+        outState.putString(IMAGE_PATH,imageThumbnail);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState == null){
+            return;
+        }
+        description = savedInstanceState.getString(DESCRIPTION);
+        videoUri = savedInstanceState.getString(VIDEO_PATH);
+        imageThumbnail = savedInstanceState.getString(IMAGE_PATH);
     }
 
     @Override
@@ -63,9 +92,9 @@ public class DescriptionFragment extends Fragment {
         ButterKnife.bind(this, rootView);
 
         if (getArguments() != null) {
-            String description = getArguments().getString(getString(R.string.arguments_description));
-            String videoUri = getArguments().getString(getString(R.string.arguments_video));
-            String imageThumbnail = getArguments().getString(getString(R.string.arguments_image));
+            description = getArguments().getString(getString(R.string.arguments_description));
+            videoUri = getArguments().getString(getString(R.string.arguments_video));
+            imageThumbnail = getArguments().getString(getString(R.string.arguments_image));
 
             // check landscape mode
             boolean isLandScape = getResources().getBoolean(R.bool.isLandScape);
