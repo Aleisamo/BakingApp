@@ -28,33 +28,35 @@ public class Description extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_description);
         ButterKnife.bind(this);
-        if (getIntent() == null) {
-            return;
-        }
-
-        Intent intent = getIntent();
-        setTitle(intent.getStringExtra(getString(R.string.title)));
-        steps = intent.getParcelableArrayListExtra(getString(R.string.steps));
-        int position = intent.getIntExtra(getString(R.string.position), 0);
-        if (currentPosition < 0) {
-            currentPosition = position;
-        }
-        // restore state from share preferences
-        display(currentPosition);
-
-        mBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                display(--currentPosition);
+        if (savedInstanceState == null) {
+            if (getIntent() == null) {
+                return;
             }
-        });
 
-        mNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                display(++currentPosition);
+            Intent intent = getIntent();
+            setTitle(intent.getStringExtra(getString(R.string.title)));
+            steps = intent.getParcelableArrayListExtra(getString(R.string.steps));
+            int position = intent.getIntExtra(getString(R.string.position), 0);
+            if (currentPosition < 0) {
+                currentPosition = position;
             }
-        });
+            // restore state from share preferences
+            display(currentPosition);
+
+            mBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    display(--currentPosition);
+                }
+            });
+
+            mNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    display(++currentPosition);
+                }
+            });
+        }
     }
 
     private void display(int position) {
@@ -75,6 +77,11 @@ public class Description extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().
                 replace(R.id.description, descriptionFragment)
                 .commit();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override

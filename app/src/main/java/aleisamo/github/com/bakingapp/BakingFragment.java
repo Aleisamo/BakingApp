@@ -87,7 +87,6 @@ public class BakingFragment extends Fragment implements OnItemClickListener {
 
         if (isTwoPane()) {
             glm.onRestoreInstanceState(savedInstanceState.getParcelable(LAYOUT_MANAGER));
-
         } else {
             llm.onRestoreInstanceState(savedInstanceState.getParcelable(LAYOUT_MANAGER));
         }

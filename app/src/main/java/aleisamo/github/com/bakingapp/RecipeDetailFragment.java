@@ -45,20 +45,24 @@ public class RecipeDetailFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         callback = (OnItemClickListener) context;
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_detail_recipes, container, false);
+
         ButterKnife.bind(this, rootView);
 
         if (getArguments() != null) {
             ingredientsLlm = new LinearLayoutManager(getContext());
             mIngredientsView.setLayoutManager(ingredientsLlm);
             ArrayList<Ingredient> ingredients = getArguments().getParcelableArrayList(getString(R.string.ingredients));
-            ListOfIngredientsAdapter adapter = new ListOfIngredientsAdapter(ingredients);
             // Adapter for ingredients
+            ListOfIngredientsAdapter adapter = new ListOfIngredientsAdapter(ingredients);
             mIngredientsView.setAdapter(adapter);
+
             stepsLlm = new LinearLayoutManager(getContext());
             mStepsView.setLayoutManager(stepsLlm);
             ArrayList<Step> steps = getArguments().getParcelableArrayList(getString(R.string.steps));
@@ -67,30 +71,31 @@ public class RecipeDetailFragment extends Fragment {
             mStepsView.setAdapter(stepsAdapter);
             stepsAdapter.setClickListener(callback);
         }
-
         return rootView;
+
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Parcelable csIngredients = ingredientsLlm.onSaveInstanceState();
-        outState.putParcelable(LAYOUT_INGREDIENTS,csIngredients);
+        outState.putParcelable(LAYOUT_INGREDIENTS, csIngredients);
         Parcelable csSteps = stepsLlm.onSaveInstanceState();
-        outState.putParcelable(LAYOUT_STEPS,csSteps);
+        outState.putParcelable(LAYOUT_STEPS, csSteps);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             return;
         }
         ingredientsLlm.onRestoreInstanceState(savedInstanceState.getParcelable(LAYOUT_INGREDIENTS));
-        ingredientsLlm.setOrientation(LinearLayoutManager.VERTICAL);
-        stepsLlm.setOrientation(LinearLayoutManager.VERTICAL);
         stepsLlm.onRestoreInstanceState(savedInstanceState.getParcelable(LAYOUT_STEPS));
+
     }
+
+
 }
 
 

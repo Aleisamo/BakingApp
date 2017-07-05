@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".RecipesDetail">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/detail_recipes_fragment"
-        android:name="aleisamo.github.com.bakingapp.RecipeDetailFragment"
         android:layout_width="0dp"
         android:layout_weight="0.5"
         android:layout_height="match_parent"
